@@ -252,7 +252,7 @@ $row2 = $result->fetch_assoc();
     
     <tr>
     <td align="right">Cantidad:</td>
-    <td><input type="text" id="txtbox" name="quant" value="<?php echo @$quant ?>" placeholder="quantity" required></td>
+    <td><input type="text" id="txtbox" name="quant" value="<?php echo @$quant ?>" placeholder="Cantidad" required></td>
     </tr>
     
     <tr>
@@ -271,7 +271,7 @@ $row2 = $result->fetch_assoc();
     
     <tr>
     <td align="right">Monto Cancelado:</td>
-    <td><input type="text" id="txtbox" value="<?php echo @$ten ?>" name="tendered" placeholder="Tendered"></td>
+    <td><input type="text" id="txtbox" value="<?php echo @$ten ?>" name="tendered" placeholder="Monto Cancelado"></td>
     <td><input type="submit" value="Calculate" name="sub" id="btncalc"></td>
     </tr>
     

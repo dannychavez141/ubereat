@@ -1,6 +1,23 @@
-<!DOCTYPE html >
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Ventas</title>
+</head>
 <?php error_reporting(0);
  include_once'./cabezera.php';  ?>
+
+<script>
+	function toggle_visibility(id){
+		var e = document.getElementById(id);
+		if(e.style.display=='block')
+			e.style.display = 'none';
+		else
+			e.style.display = 'block';
+		}
+</script>
+
+<body>
 <br>
 <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
       
@@ -50,8 +67,8 @@ while ($row=mysqli_fetch_array($result)){?>
       <tr align="center" style="height:35px">
       	<td style="border-bottom:1px solid #333;"> <?php echo $row['category']; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['name']; ?> </td>
-        <td style="border-bottom:1px solid #333;">$ <?php echo $row['retail']; ?> </td>
-        <td style="border-bottom:1px solid #333;"> <?php echo $row['quantity']; ?> pcs. </td>
+        <td style="border-bottom:1px solid #333;">S/ <?php echo $row['retail']; ?> </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['quantity']; ?> uni. </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['supplier']; ?> </td>
         <td style="border-bottom:1px solid #333;">
         
@@ -75,7 +92,7 @@ while ($row=mysqli_fetch_array($result)){?>
 <table border="0" cellpadding="15px" align="center"; style="size: 12px; font-family: 'Courier New', Courier, monospace; color: #FFF; font-size: 12px;">
 <tr>
 	<td>
-  &copy;2019 Todos los Derechos Reservados.  |  Diseñada por:<a href="https://www.facebook.com/repp0rt">Franco CV</a>
+     &copy;2019 Todos los Derechos Reservados.  |  Diseñada por:<a href="https://www.facebook.com/repp0rt">Franco CV</a>
     </td>
 </tr>
 </table>

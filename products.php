@@ -1,6 +1,24 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Platillos</title>
+</head>
 <?php error_reporting(0);
  include_once'./cabezera.php';  ?>
+
+<script>
+	function toggle_visibility(id){
+		var e = document.getElementById(id);
+		if(e.style.display=='block')
+			e.style.display = 'none';
+		else
+			e.style.display = 'block';
+		}
+</script>
+
+<body>
+
 <br>
 
 <table width="83%" border="0" align="center" cellpadding="0" cellspacing="0">
@@ -9,13 +27,13 @@
         <td width="741" align="right">
         
         <form action="result_products.php" method="get" ecntype="multipart/data-form">
-        <input type="text" name="query" style="border:1px solid #CCC; color: #333; width:210px; height:30px;" placeholder="Buscar Producto..." /><input type="submit" id="btnsearch" value="Buscar" name="search" />
+        <input type="text" name="query" style="border:1px solid #CCC; color: #333; width:210px; height:30px;" placeholder="Buscar Platillo..." /><input type="submit" id="btnsearch" value="Buscar" name="search" />
         </form>
         
         </td>
         
         <td width="131" height="37">
-        <a href="javascript:void(0)" onclick="toggle_visibility('popup-box1')"><input type="button" id="btnadd" value="+ Agregar Productos" /></a>
+        <a href="javascript:void(0)" onclick="toggle_visibility('popup-box1')"><input type="button" id="btnadd" value="+Agregar Platillo" /></a>
         </td>
       </tr>
     
@@ -58,8 +76,8 @@ while ($row=mysqli_fetch_array($result)){?>
       	<td style="border-bottom:1px solid #333;"> <?php echo $row['category']; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['name']; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['quantity']; ?> pcs. </td>
-        <td style="border-bottom:1px solid #333;">$ <?php echo $row['purchase']; ?> </td>
-        <td style="border-bottom:1px solid #333;">$ <?php echo $row['retail']; ?> </td>
+        <td style="border-bottom:1px solid #333;">S/ <?php echo $row['purchase']; ?> </td>
+        <td style="border-bottom:1px solid #333;">S/ <?php echo $row['retail']; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['supplier']; ?> </td>
         <td style="border-bottom:1px solid #333;">
         
@@ -83,7 +101,7 @@ while ($row=mysqli_fetch_array($result)){?>
 <table border="0" cellpadding="15px" align="center"; style="size: 12px; font-family: 'Courier New', Courier, monospace; color: #FFF; font-size: 12px;">
 <tr>
 	<td>
-   &copy;2019 Todos los Derechos Reservados.  |  Diseñada por:<a href="https://www.facebook.com/repp0rt">Franco CV</a>
+   &copy;2019 Todos los Derechos Reservados.  |  Diseñada por:<a href="https://www.facebook.com/repp0rt">Franco CV</a>  
     </td>
 </tr>
 </table>
@@ -97,7 +115,7 @@ while ($row=mysqli_fetch_array($result)){?>
 <div id="popup-container">
     <div id="popup-head-color1">
     <p style="text-align:right !important; font-family: 'Courier New', Courier, monospace;font-size:15px;"><a href= "javascript:void(0)" onclick="toggle_visibility('popup-box1')"><font color="#FFF"> X </font></a></p>
-    <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif;font-size:16px;">Formulario Agregar Producto</p>
+    <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif;font-size:16px;">Formulario de Platillos y Bebidas</p>
     </div>
     <br>
     <form action="add_item.php" method="POST">
@@ -107,10 +125,11 @@ while ($row=mysqli_fetch_array($result)){?>
     <td align="right">Categoria:</td>
     <td>
     <select name="category" id="txtbox">
-    <option> FastFood</option>
+    <option> Comida Rapida</option>
     <option> Postre </option>
-    <option> Hamburguesa </option>
-    <option> Sandwich </option>
+    <option> Almuerzos</option>
+    <option> Antojitos</option>
+    <option> Bebidas</option>
     </select>
     </td>
     </tr>
@@ -122,17 +141,17 @@ while ($row=mysqli_fetch_array($result)){?>
     
     <tr>
     <td align="right">Cantidad:</td>
-    <td><input type="text" id="txtbox" min="1" name="quantity" maxlength="11" placeholder="Quantity" required><br></td>
+    <td><input type="text" id="txtbox" min="1" name="quantity" maxlength="11" placeholder="Cantidad" required><br></td>
     </tr>
     
     <tr>
     <td align="right">Precio de Compra:</td>
-    <td><input type="text" id="txtbox" name="purchase" maxlength="11" placeholder="Purchase amnt" required><br></td>
+    <td><input type="text" id="txtbox" name="purchase" maxlength="11" placeholder="Precio de Compra" required><br></td>
     </tr>
     
     <tr>
     <td align="right">Precio de Venta:</td>
-    <td><input type="text" id="txtbox" name="retail" maxlength="11" placeholder="Retail" required><br></td>
+    <td><input type="text" id="txtbox" name="retail" maxlength="11" placeholder="Precio de Venta" required><br></td>
     </tr>
     
     <tr>

@@ -166,7 +166,7 @@ if(!isset($_SESSION['username'])){
 <table border="0" cellpadding="15px" align="center"; style="size: 12px; font-family: 'Courier New', Courier, monospace; color: #FFF; font-size: 12px;">
 <tr>
 	<td>
-    &copy; 2015 All Rights Reserved.  |  Designed By:<a href="https://www.facebook.com/platea21">Platea21</a>	
+    &copy;2019 Todos los Derechos Reservados.  |  Diseñada por:<a href="https://www.facebook.com/repp0rt">Franco CV</a> 
     </td>
 </tr>
 </table>

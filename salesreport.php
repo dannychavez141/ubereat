@@ -1,14 +1,33 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Reporte de Ventas</title>
+</head>
 <?php error_reporting(0);
  include_once'./cabezera.php';  ?>
-<br>
+<link rel="stylesheet" type="text/css" href="css/css1.css">
+<script>
+	function toggle_visibility(id){
+		var e = document.getElementById(id);
+		if(e.style.display=='block')
+			e.style.display = 'none';
+		else
+			e.style.display = 'block';
+		}
+</script>
+
+<body>
+
+</div>
+<br><br><br><br><br>
 
 <table border="0" align="center" cellpadding="0" cellspacing="0" width="80%">
       
       <tr>
       <form action="salesreport.php" method="get" ecntype="multipart/data-form">
-        <td width="48%" height="37" align="right"><input type="text" name="d1" style="border:1px solid #CCC; color: #333; width:210px; height:30px;" placeholder="2015-05-13" required /></td>
-        <td width="15%" align="left"> <input type="text" name="d2" style="border:1px solid #CCC; color: #333; width:210px; height:30px;" placeholder="2015-06-13" required  /> </td>
+        <td width="48%" height="37" align="right"><input type="date" name="d1" style="border:1px solid #CCC; color: #333; width:210px; height:30px;" placeholder="2015-05-13" required /></td>
+        <td width="15%" align="left"> <input type="date" name="d2" style="border:1px solid #CCC; color: #333; width:210px; height:30px;" placeholder="2015-06-13" required  /> </td>
         <td width="0%" align="left"><input type="submit" id="btnsearch" value="Buscar" name="search" /></td>
         </form>
       </tr>
@@ -57,8 +76,8 @@ while ($row=mysqli_fetch_array($result)){?>
       	<td style="border-bottom:1px solid #333;"> <?php echo $row['customers']; ?> </td>
       	<td style="border-bottom:1px solid #333;"> <?php echo $row['name']; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['quantity']; ?> </td>
-        <td style="border-bottom:1px solid #333;">$ <?php echo $row['total']; ?> </td>
-        <td style="border-bottom:1px solid #333;">$ <?php echo $row['profit']; ?> </td>
+        <td style="border-bottom:1px solid #333;">S/ <?php echo $row['total']; ?> </td>
+        <td style="border-bottom:1px solid #333;">s/ <?php echo $row['profit']; ?> </td>
       </tr>
    <?php
 }}?>
@@ -86,7 +105,7 @@ while ($row=mysqli_fetch_array($result)){?>
 				$results=mysqli_query($db_link, $view1);
 				for($i=0; $rows = mysqli_fetch_array($results); $i++){
 				$total=$rows['sum(total)'];
-				echo "$"." ".$total;
+				echo "S/"." ".$total;
 				}
 			}
 	  ?>
@@ -103,7 +122,7 @@ while ($row=mysqli_fetch_array($result)){?>
 				$results1=mysqli_query($db_link, $view2);
 				for($i=0; $rowss = mysqli_fetch_array($results1); $i++){
 				$profit=$rowss['sum(profit)'];
-				echo "$"." ".$profit;
+				echo "S/"." ".$profit;
 				}
 		}
 	  ?>
@@ -123,7 +142,7 @@ while ($row=mysqli_fetch_array($result)){?>
 <table border="0" cellpadding="15px" align="center"; style="size: 12px; font-family: 'Courier New', Courier, monospace; color: #FFF; font-size: 12px;">
 <tr>
 	<td>
-   &copy;2019 Todos los Derechos Reservados.  |  Diseñada por:<a href="https://www.facebook.com/repp0rt">Franco CV</a>
+     &copy;2019 Todos los Derechos Reservados.  |  Diseñada por:<a href="https://www.facebook.com/repp0rt">Franco CV</a>
     </td>
 </tr>
 </table>

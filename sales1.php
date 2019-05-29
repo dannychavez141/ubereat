@@ -1,7 +1,39 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
+<title>Realizar Venta</title>
+<script language="JavaScript"> 
+function mueveReloj(){ 
+      momentoActual = new Date() 
+      hora = momentoActual.getHours() 
+      minuto = momentoActual.getMinutes() 
+      segundo = momentoActual.getSeconds() 
+
+      str_segundo = new String (segundo) 
+      if (str_segundo.length == 1) 
+         segundo = "0" + segundo 
+
+      str_minuto = new String (minuto) 
+      if (str_minuto.length == 1) 
+         minuto = "0" + minuto 
+
+      str_hora = new String (hora) 
+      if (str_hora.length == 1) 
+         hora = "0" + hora 
+ if (str_hora > 12) 
+       { hora =hora -12;
+
+  mon="PM";}else mon="AM"
+
+
+      horaImprimible = hora + " : " + minuto + " : " + segundo +" "+mon;
+
+      document.form_reloj.reloj.value = horaImprimible 
+
+      setTimeout("mueveReloj()",1000) 
+} 
+</script> 
 </head>
 
 <link rel="stylesheet" type="text/css" href="css/css1.css">
@@ -15,7 +47,7 @@
 		}
 </script>
 
-<body>
+<body onload="mueveReloj()">
 
 <?php
 session_start();
@@ -30,9 +62,9 @@ if(!isset($_SESSION['username'])){
 <tr>
 	<td width="56%">
     <table width="41%" border="0" cellspacing="0" cellpadding="0">
-	  <tr>
-	    <td width="80%" align="left"> <font size="12px">P</font><span style="font-size: 18px;">unto <b>D</b>e <b>V</b>enta</span></td>
-	    </tr>
+	 <tr>
+       <td width="80%" align="left"> <font size="12px">D</font><span style="font-size: 18px;">elivery <b>D</b>e <b>C</b>omida</span></td>
+       </tr>
 	  </table></td>
     <td style="font-size:14px;">
       <table width="93%" border="0" cellspacing="0" cellpadding="0">
@@ -71,11 +103,10 @@ if(!isset($_SESSION['username'])){
       <table border="0" cellspacing="0" cellpadding="0">
       	<tr>
         	<td align="left" style="color:#FFF">
-            <?php
-			$date_time=date("h:i:sa");
+         <form name="form_reloj"> 
+<input type="text" name="reloj" size="15" style="background-color : Black; color : White; font-family : Verdana, Arial, Helvetica; font-size : 8pt; text-align : center;" onfocus="window.document.form_reloj.reloj.blur()"> 
+</form> 
 			
-			echo $date_time;
-			?>
             </td>
         </tr>
       </table>
@@ -133,8 +164,8 @@ while ($row=mysqli_fetch_array($result)){?>
       <tr align="center" style="height:35px">
       	<td style="border-bottom:1px solid #333;"> <?php echo $row['category']; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['name']; ?> </td>
-        <td style="border-bottom:1px solid #333;">$ <?php echo $row['retail']; ?> </td>
-        <td style="border-bottom:1px solid #333;"> <?php echo $row['quantity']; ?> pcs. </td>
+        <td style="border-bottom:1px solid #333;">S/ <?php echo $row['retail']; ?> </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['quantity']; ?> uni. </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['supplier']; ?> </td>
         <td style="border-bottom:1px solid #333;">
         
@@ -158,7 +189,7 @@ while ($row=mysqli_fetch_array($result)){?>
 <table border="0" cellpadding="15px" align="center"; style="size: 12px; font-family: 'Courier New', Courier, monospace; color: #FFF; font-size: 12px;">
 <tr>
 	<td>
-    &copy; 2015 All Rights Reserved.  |  Designed By:<a href="https://www.facebook.com/platea21">Platea21</a>	
+     &copy;2019 Todos los Derechos Reservados.  |  Diseñada por:<a href="https://www.facebook.com/repp0rt">Franco CV</a> 
     </td>
 </tr>
 </table>
