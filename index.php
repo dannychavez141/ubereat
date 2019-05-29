@@ -63,7 +63,7 @@ if($_SESSION['access']=='Salesperson'){
 	  <tr>
 	    <th width="90" height="62" scope="col"><a href="index.php">Tablero</a></th>
 	    <th width="50" scope="col"><a href="sales.php">Ventas</a></th>
-	    <th width="80" scope="col"><a href="products.php">Productos</a></th>
+	    <th width="80" scope="col"><a href="products.php">Platillos</a></th>
 	    <th width="90" scope="col"><a href="customers.php">Clientes</a></th>
 	    <th width="90" scope="col"><a href="supplier.php">Proveedor</a></th>
 	    <th width="112" scope="col"><a href="salesreport.php">Reporte de Ventas</a></th>

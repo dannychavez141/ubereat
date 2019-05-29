@@ -47,7 +47,7 @@
     <table border="0" cellpadding="0" cellspacing="0" align="center" width="80%" style="border:1px solid #033; color:#033;">
     
      <tr>
-     <th colspan="7" align="center" height="55px" style="border-bottom:1px solid #033; background: #033; color:#FFF;"> Tabla - Informacion de Productos	</th>
+     <th colspan="7" align="center" height="55px" style="border-bottom:1px solid #033; background: #033; color:#FFF;"> Tabla - Informacion de Platillos</th>
     </tr>
     
       <tr height="30px">
