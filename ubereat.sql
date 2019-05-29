@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
+-- version 4.2.11
 -- http://www.phpmyadmin.net
 --
--- Servidor: localhost
--- Tiempo de generación: 13-11-2015 a las 19:32:46
--- Versión del servidor: 5.6.12-log
--- Versión de PHP: 5.4.12
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 29-05-2019 a las 19:56:03
+-- Versión del servidor: 5.5.40
+-- Versión de PHP: 5.5.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,10 +17,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de datos: `dbpos`
+-- Base de datos: `ubereat`
 --
-CREATE DATABASE IF NOT EXISTS `dbpos` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `dbpos`;
+CREATE DATABASE IF NOT EXISTS `ubereat` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `ubereat`;
 
 -- --------------------------------------------------------
 
@@ -29,25 +29,19 @@ USE `dbpos`;
 --
 
 CREATE TABLE IF NOT EXISTS `customers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `contact` varchar(100) NOT NULL,
   `address` varchar(100) NOT NULL,
-  `note` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`,`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+  `note` varchar(100) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `customers`
 --
 
 INSERT INTO `customers` (`id`, `name`, `contact`, `address`, `note`) VALUES
-(7, 'Walk in Customers', 'na', 'na', 'na'),
-(8, 'Paolo Asoy', '09456465465', 'Quezon City', 'na'),
-(9, 'Carl Moneda', '09431215641', 'Valenzuela', 'na'),
-(10, 'Ian Estabaya', '09644164565', 'Quezon City', 'na'),
-(11, 'Jun Magayanes', '09641513561', 'Malabon', 'na'),
-(12, 'Platea21', 'Gorchor', 'Peru', 'Hola');
+(1, 'Arnaldo Vasquez Ruiz', '994 878 976', 'Jr. Tupac nÂ°450', 'no paga bien');
 
 -- --------------------------------------------------------
 
@@ -56,26 +50,21 @@ INSERT INTO `customers` (`id`, `name`, `contact`, `address`, `note`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `products` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `category` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `quantity` int(11) NOT NULL,
   `purchase` int(11) NOT NULL,
   `retail` int(11) NOT NULL,
-  `supplier` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`,`category`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+  `supplier` varchar(100) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `products`
 --
 
 INSERT INTO `products` (`id`, `category`, `name`, `quantity`, `purchase`, `retail`, `supplier`) VALUES
-(21, 'Finger Food', 'Beta max', 100, 3, 4, 'Mangboks betamax'),
-(22, 'Finger Food', 'Quek quek', 100, 2, 3, 'Street Quek2x'),
-(23, 'Finger Food', 'fish balls', 100, 1, 1, 'Stick Fishing ball'),
-(24, 'Finger Food', 'Chicken Ball', 99, 3, 5, 'Stick Fishing ball'),
-(25, 'Dessert', 'Puto', 97, 3, 5, 'kakanin atb.');
+(1, 'Almuerzos', 'Lomo Saltado', 49, 10, 15, 'Restaurant OrlandoÂ´s');
 
 -- --------------------------------------------------------
 
@@ -84,7 +73,7 @@ INSERT INTO `products` (`id`, `category`, `name`, `quantity`, `purchase`, `retai
 --
 
 CREATE TABLE IF NOT EXISTS `sales` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `dates` date NOT NULL,
   `customers` varchar(100) NOT NULL,
   `category` varchar(100) NOT NULL,
@@ -94,17 +83,15 @@ CREATE TABLE IF NOT EXISTS `sales` (
   `total` int(11) NOT NULL,
   `profit` int(11) NOT NULL,
   `tendered` int(11) NOT NULL,
-  `changed` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `changed` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `sales`
 --
 
 INSERT INTO `sales` (`id`, `dates`, `customers`, `category`, `name`, `amnt`, `quantity`, `total`, `profit`, `tendered`, `changed`) VALUES
-(1, '2015-11-13', 'Walk in Customers', 'Dessert', 'Puto', 5, 3, 15, 6, 20, 5),
-(2, '2015-11-13', 'Platea21', 'Finger Food', 'Chicken Ball', 5, 1, 5, 2, 5, 0);
+(1, '2019-05-29', 'Arnaldo Vasquez Ruiz', 'Almuerzos', 'Lomo Saltado', 15, 1, 15, 5, 20, 5);
 
 -- --------------------------------------------------------
 
@@ -113,25 +100,20 @@ INSERT INTO `sales` (`id`, `dates`, `customers`, `category`, `name`, `amnt`, `qu
 --
 
 CREATE TABLE IF NOT EXISTS `supplier` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `suppliername` varchar(100) NOT NULL,
   `contactperson` varchar(100) NOT NULL,
   `address` varchar(100) NOT NULL,
   `contactno` varchar(11) NOT NULL,
-  `note` varchar(200) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+  `note` varchar(200) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `supplier`
 --
 
 INSERT INTO `supplier` (`id`, `suppliername`, `contactperson`, `address`, `contactno`, `note`) VALUES
-(13, 'Mangboks betamax', 'Juli Sanjuan', 'Malabon', '09215454654', 'na'),
-(14, 'Siomai tbp.', 'Jezzy Jaime', 'Caloocan', '09646454564', 'na'),
-(15, 'Stick Fishing ball', 'Nardo Besoza', 'Valenzuela', '06365465446', 'na'),
-(16, 'kakanin atb.', 'Loui Cruz', 'Pasay', '09634654654', 'na'),
-(17, 'Street Quek2x', 'Nilo Cruz', 'Pasig', '09765464164', 'na');
+(1, 'Restaurant OrlandoÂ´s', 'Orlando Ramos del Aguila', 'Av.Alamedas nÂ°213', '999 354 684', 'ultima opcion');
 
 -- --------------------------------------------------------
 
@@ -140,12 +122,11 @@ INSERT INTO `supplier` (`id`, `suppliername`, `contactperson`, `address`, `conta
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `userid` int(11) NOT NULL AUTO_INCREMENT,
+`userid` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `access` varchar(50) NOT NULL,
-  PRIMARY KEY (`userid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `access` varchar(50) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `users`
@@ -153,8 +134,71 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`userid`, `username`, `password`, `access`) VALUES
 (1, 'admin', 'admin', 'Admin'),
-(2, 'vendedor', 'vendedor', 'Salesperson');
+(2, 'fcortez', '1234', 'Salesperson');
 
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `customers`
+--
+ALTER TABLE `customers`
+ ADD PRIMARY KEY (`id`,`name`);
+
+--
+-- Indices de la tabla `products`
+--
+ALTER TABLE `products`
+ ADD PRIMARY KEY (`id`,`category`);
+
+--
+-- Indices de la tabla `sales`
+--
+ALTER TABLE `sales`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `supplier`
+--
+ALTER TABLE `supplier`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `users`
+--
+ALTER TABLE `users`
+ ADD PRIMARY KEY (`userid`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `customers`
+--
+ALTER TABLE `customers`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `products`
+--
+ALTER TABLE `products`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `sales`
+--
+ALTER TABLE `sales`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `supplier`
+--
+ALTER TABLE `supplier`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `users`
+--
+ALTER TABLE `users`
+MODIFY `userid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
