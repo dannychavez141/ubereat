@@ -91,21 +91,31 @@ if(isset($_GET['search'])){
             $result = $db_link->query($sql);
             if($result->num_rows > 0){
               while($row = $result->fetch_array()){?>
+                <form action="agregar.php" method="post" ecntype="multipart/data-form">
             <tr align="center" style="height:35px">
-        <td style="border-bottom:1px solid #333;"><?php echo $row['category']; ?> </td>
-        <td style="border-bottom:1px solid #333;"><?php echo $row['name']; ?> </td>
-        <td style="border-bottom:1px solid #333;">S/<?php echo $row['retail']; ?> </td>
-        <td style="border-bottom:1px solid #333;"><?php echo $row['quantity']; ?>uni. </td>
-        <td style="border-bottom:1px solid #333;"><?php echo $row['supplier']; ?> </td>
+       <td style="border-bottom:1px solid #333;"> <?php echo $row['category']; ?> </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['name']; ?> </td>
+        <td style="border-bottom:1px solid #333;">S/ <?php echo $row['retail']; ?> </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['quantity']; ?> uni. </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['supplier']; ?> </td>
          <td style="border-bottom:1px solid #333;"> <img src="imgplatos/<?php echo $row['id'].'.'.$row['ext'];?>"width="150" height="150"> </td>
-         <td style="border-bottom:1px solid #333;"><input type="number" name="cant" placeholder="Cantidad"></td>
+          <td style="border-bottom:1px solid #333;width: 50px;">
+            <select name="cant">
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select></td>
         <td style="border-bottom:1px solid #333;">
-        
-        
-        <a href="process_sales.php?id=<?php echo md5($row['id']);?>"><input type="button" value="Agregar" style="width:90px; height:30px; color:#FFF; background: #930; border:1px solid #930; border-radius:3px;"></a>
-        
+<input type="hidden" name="idplato" value="<?php echo $row['id']; ?>">
+<input type="hidden" name="id" value="<?php echo $id; ?>">
+        <input type="submit" value="Agregar" style="width:90px; height:30px; color:#FFF; background: #930; border:1px solid #930; border-radius:3px;">
+      
         </td>
       </tr>
+      </form>
             <?php
           
               }

@@ -45,7 +45,7 @@ if ($conf) {
     <table border="1" cellpadding="0" cellspacing="0" align="center" width="80%" style="border:1px solid #033; color:#033;">
     
      <tr>
-     <th colspan="7" align="center" height="55px" style="border-bottom:1px solid #030; background: #030; color:#FFF;"> Seleccionar Platillos </th>
+     <th colspan="7" align="center" height="55px" style="border-bottom:1px solid #030; background: #030; color:#FFF;"> Seleccionar Cliente </th>
     </tr>
     
       <tr height="30px">
