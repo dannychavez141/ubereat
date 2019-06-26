@@ -52,6 +52,9 @@ if(!isset($_SESSION['username'])){
 if($_SESSION['access']=='Salesperson'){
    header('location:sales1.php');
    }
+   if($_SESSION['access']=='Client'){
+  header('location:sales2.php');
+  }
 ?>
 
 <div id="container">
@@ -93,7 +96,7 @@ if($_SESSION['access']=='Salesperson'){
    <table width="669" border="0" cellspacing="0" cellpadding="0">
      <tr>
        <th width="90" height="62" scope="col"><a href="index.php">Tablero</a></th>
-       <th width="50" scope="col"><a href="sales.php">Ventas</a></th>
+       <th width="50" scope="col"><a href="limpiar.php">Ventas</a></th>
        <th width="80" scope="col"><a href="products.php">Platillos</a></th>
        <th width="90" scope="col"><a href="customers.php">Clientes</a></th>
        <th width="90" scope="col"><a href="supplier.php">Proveedor</a></th>

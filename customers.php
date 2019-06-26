@@ -51,6 +51,7 @@
     </tr>
     
       <tr height="30px">
+        <th style="border-bottom:1px solid #333;"> DNI O RUC </th>
         <th style="border-bottom:1px solid #333;"> Nombre </th>
         <th style="border-bottom:1px solid #333;"> Contacto </th>
         <th style="border-bottom:1px solid #333;"> Direccion </th>
@@ -71,6 +72,7 @@ $result=mysqli_query($db_link, $query);
 while ($row=mysqli_fetch_array($result)){?>
       
       <tr align="center" style="height:25px">
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['username']; ?> </td>
       	<td style="border-bottom:1px solid #333;"> <?php echo $row['name']; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['contact']; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['address']; ?> </td>
@@ -114,7 +116,7 @@ while ($row=mysqli_fetch_array($result)){?>
     </div>
     <br>
     <form action="add_customer.php" method="POST">
-    <table border="0" align="center">
+    <table border="1" align="center">
     
     <tr>
     <td align="right">Nombre:</td>
@@ -130,7 +132,14 @@ while ($row=mysqli_fetch_array($result)){?>
     <td align="right">Direccion:</td>
     <td><input type="text" id="txtbox" name="address" placeholder="Direccion" required><br></td>
     </tr>
-    
+    <tr>
+    <td align="right">DNI O RUC:</td>
+    <td><input type="text" id="txtbox" name="username" placeholder="DNI O RUC" required><br></td>
+    </tr>
+    <tr>
+    <td align="right">Contraseña:</td>
+    <td><input type="text" id="txtbox" name="password" placeholder="Contraseña" required><br></td>
+    </tr>
     <tr>
     <td align="right">Notas:</td>
     <td><input type="text" id="txtbox" name="note" placeholder="Notas" required><br></td>

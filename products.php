@@ -44,10 +44,10 @@
   
   <tr>
     <td>
-    <table border="0" cellpadding="0" cellspacing="0" align="center" width="80%" style="border:1px solid #033; color:#033;">
+    <table border="1" cellpadding="0" cellspacing="0" align="center" width="80%" style="border:1px solid #033; color:#033;">
     
      <tr>
-     <th colspan="7" align="center" height="55px" style="border-bottom:1px solid #033; background: #033; color:#FFF;"> Tabla - Informacion de Platillos</th>
+     <th colspan="8" align="center" height="55px" style="border-bottom:1px solid #033; background: #033; color:#FFF;"> Tabla - Informacion de Platillos</th>
     </tr>
     
       <tr height="30px">
@@ -57,6 +57,7 @@
         <th style="border-bottom:1px solid #333;"> Precio de Compra </th>
         <th style="border-bottom:1px solid #333;"> Precio Venta </th>
         <th style="border-bottom:1px solid #333;"> Proveedor </th>
+        <th style="border-bottom:1px solid #333;"> Imagen </th>
         <th style="border-bottom:1px solid #333;"> Accion </th>
       </tr>
       
@@ -75,15 +76,15 @@ while ($row=mysqli_fetch_array($result)){?>
       <tr align="center" style="height:25px">
       	<td style="border-bottom:1px solid #333;"> <?php echo $row['category']; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['name']; ?> </td>
-        <td style="border-bottom:1px solid #333;"> <?php echo $row['quantity']; ?> pcs. </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['quantity']; ?> uni. </td>
         <td style="border-bottom:1px solid #333;">S/ <?php echo $row['purchase']; ?> </td>
         <td style="border-bottom:1px solid #333;">S/ <?php echo $row['retail']; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['supplier']; ?> </td>
+         <td style="border-bottom:1px solid #333;"> <img src="imgplatos/<?php echo $row['id'].'.'.$row['ext'];?>"width="100" height="100"> </td>
         <td style="border-bottom:1px solid #333;">
         
         
-        <a href="edit_item.php?id=<?php echo md5($row['id']);?>"><input type="button" value="Editar" style="width:50px; height:20; color:#FFF; background:#069; border:1px solid #069; border-radius:3px;"></a>/<a href="delete_item.php?id=<?php echo md5($row['id']);?>"><input type="button" value="Eliminar" style="width:15; height:20; color:#FFF; background: #900; border:1px solid #900; border-radius:3px;"></a>
-        
+        <a href="edit_item.php?id=<?php echo md5($row['id']);?>"><input type="button" value="Editar" style="width:50px; height:20; color:#FFF; background:#069; border:1px solid #069; border-radius:3px;"></a>
         </td>
       </tr>
    <?php
@@ -118,7 +119,7 @@ while ($row=mysqli_fetch_array($result)){?>
     <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif;font-size:16px;">Formulario de Platillos y Bebidas</p>
     </div>
     <br>
-    <form action="add_item.php" method="POST">
+    <form action="add_item.php" method="POST" enctype="multipart/form-data">
     <table border="0" align="center">
     
     <tr>
@@ -129,6 +130,8 @@ while ($row=mysqli_fetch_array($result)){?>
     <option> Postre </option>
     <option> Almuerzos</option>
     <option> Antojitos</option>
+    <option> Chifa</option>
+    <option> Parrilla</option>
     <option> Bebidas</option>
     </select>
     </td>
@@ -141,17 +144,17 @@ while ($row=mysqli_fetch_array($result)){?>
     
     <tr>
     <td align="right">Cantidad:</td>
-    <td><input type="text" id="txtbox" min="1" name="quantity" maxlength="11" placeholder="Cantidad" required><br></td>
+    <td><input type="number" id="txtbox" min="1" name="quantity" maxlength="11" placeholder="Cantidad" required><br></td>
     </tr>
     
     <tr>
     <td align="right">Precio de Compra:</td>
-    <td><input type="text" id="txtbox" name="purchase" maxlength="11" placeholder="Precio de Compra" required><br></td>
+    <td><input type="number" id="txtbox" name="purchase" maxlength="11" placeholder="Precio de Compra" required><br></td>
     </tr>
     
     <tr>
     <td align="right">Precio de Venta:</td>
-    <td><input type="text" id="txtbox" name="retail" maxlength="11" placeholder="Precio de Venta" required><br></td>
+    <td><input type="number" id="txtbox" name="retail" maxlength="11" placeholder="Precio de Venta" required><br></td>
     </tr>
     
     <tr>
@@ -169,6 +172,9 @@ while ($row=mysqli_fetch_array($result)){?>
 }?>
 	</select>
 </td>
+<tr><td>Imagen Referencial</td><td><input type="file" id="txtbox" name="imgref"  required accept=".jpg, .png"></td></tr>
+
+
     </tr>
     
     <br>

@@ -197,7 +197,7 @@ if(isset($_POST['update'])){
     <td align="right">Proveedor:</td>
     <td>
     <select name="supplier" id="txtbox">
-    
+    <option><?php echo $row['supplier']; ?></option>
            <?php
 require('config.php');
 $query="SELECT suppliername FROM supplier";

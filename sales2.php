@@ -2,7 +2,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
+<title>Realizar Venta</title>
+<script language="JavaScript"> 
+function mueveReloj(){ 
+      momentoActual = new Date() 
+      hora = momentoActual.getHours() 
+      minuto = momentoActual.getMinutes() 
+      segundo = momentoActual.getSeconds() 
+
+      str_segundo = new String (segundo) 
+      if (str_segundo.length == 1) 
+         segundo = "0" + segundo 
+
+      str_minuto = new String (minuto) 
+      if (str_minuto.length == 1) 
+         minuto = "0" + minuto 
+
+      str_hora = new String (hora) 
+      if (str_hora.length == 1) 
+         hora = "0" + hora 
+ if (str_hora > 12) 
+       { hora =hora -12;
+
+  mon="PM";}else mon="AM"
+
+
+      horaImprimible = hora + " : " + minuto + " : " + segundo +" "+mon;
+
+      document.form_reloj.reloj.value = horaImprimible 
+
+      setTimeout("mueveReloj()",1000) 
+} 
+</script> 
 </head>
 
 <link rel="stylesheet" type="text/css" href="css/css1.css">
@@ -16,7 +47,7 @@
 		}
 </script>
 
-<body>
+<body onload="mueveReloj()">
 
 <?php
 session_start();
@@ -31,14 +62,14 @@ if(!isset($_SESSION['username'])){
 <tr>
 	<td width="56%">
     <table width="41%" border="0" cellspacing="0" cellpadding="0">
-	  <tr>
-	    <td width="80%" align="left"> <font size="12px">P</font><span style="font-size: 18px;">unto <b>D</b>e <b>V</b>enta</span></td>
-	    </tr>
+	 <tr>
+       <td width="80%" align="left"> <font size="12px">D</font><span style="font-size: 18px;">elivery <b>D</b>e <b>C</b>omida</span></td>
+       </tr>
 	  </table></td>
     <td style="font-size:14px;">
-      <table width="93%" border="0" cellspacing="0" cellpadding="0">
+      <table width="90%" border="0" cellspacing="0" cellpadding="0">
         <tr>
-        	<th scope="col">Bienvenido: <?php echo $_SESSION['access'];?></th>
+        	<th scope="col">Bienvenido: <?php echo $_SESSION['name'];?></th>
           	<th scope="col"><?php
 			include_once("date1.php"); //$Today = date('y:m:d',time());
 			//$new = date('l, F d, Y', strtotime($Today));
@@ -61,14 +92,9 @@ if(!isset($_SESSION['username'])){
 <tr>
 
 	<td width="669" height="62">
-	<table width="669" border="0" cellspacing="0" cellpadding="0">
+	<table width="124" border="0" align="left" cellpadding="0" cellspacing="0">
 	  <tr>
-	    <th width="90" height="56" scope="col"><a href="index.php">Tablero</a></th>
-	    <th width="50" scope="col"><a href="sales.php">Ventas</a></th>
-	    <th width="80" scope="col"><a href="products.php">Productos</a></th>
-	    <th width="90" scope="col"><a href="customers.php">Clientes</a></th>
-	    <th width="90" scope="col"><a href="supplier.php">Proveedor</a></th>
-	    <th width="112" scope="col"><a href="salesreport.php">Reporte de Ventas</a></th>
+	    <th width="211" scope="col"><a href="sales1.php">Ventas</a></th>
 	    </tr>
 	  </table>
       </td>
@@ -77,11 +103,10 @@ if(!isset($_SESSION['username'])){
       <table border="0" cellspacing="0" cellpadding="0">
       	<tr>
         	<td align="left" style="color:#FFF">
-            <?php
-			$date_time=date("h:i:sa");
+         <form name="form_reloj"> 
+<input type="text" name="reloj" size="15" style="background-color : Black; color : White; font-family : Verdana, Arial, Helvetica; font-size : 8pt; text-align : center;" onfocus="window.document.form_reloj.reloj.blur()"> 
+</form> 
 			
-			echo $date_time;
-			?>
             </td>
         </tr>
       </table>
@@ -91,18 +116,15 @@ if(!isset($_SESSION['username'])){
 </table>
 </div>
 <br>
-
 <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0">
       
       <tr>
-        <td width="250" align="right">
+        <td height="37" align="right">
         
-        <form action="result_sales.php" method="get" ecntype="multipart/data-form">
+        <form action="result_sales1.php" method="get" ecntype="multipart/data-form">
         <input type="text" name="query" style="border:1px solid #CCC; color: #333; width:210px; height:30px;" placeholder="Buscar Producto..." /><input type="submit" id="btnsearch" value="Buscar" name="search" />
         </form>
-        
-        </td>
-        
+     	</td>
       </tr>
     
     </table></th>
@@ -115,53 +137,49 @@ if(!isset($_SESSION['username'])){
     <table border="0" cellpadding="0" cellspacing="0" align="center" width="80%" style="border:1px solid #033; color:#033;">
     
      <tr>
-     <th colspan="7" align="center" height="55px" style="border-bottom:1px solid #030; background: #030; color:#FFF;"> Select Products 	</th>
+     <th colspan="7" align="center" height="55px" style="border-bottom:1px solid #030; background: #030; color:#FFF;"> Seleccionar Productos </th>
     </tr>
     
       <tr height="30px">
         <th style="border-bottom:1px solid #333;"> Categoria </th>
         <th style="border-bottom:1px solid #333;"> Nombre </th>
-        <th style="border-bottom:1px solid #333;"> Price </th>
+        <th style="border-bottom:1px solid #333;"> Precio </th>
         <th style="border-bottom:1px solid #333;"> Cantidad Stock </th>
         <th style="border-bottom:1px solid #333;"> Proveedor </th>
-        <th style="border-bottom:1px solid #333;"> Pick Order </th>
+        <th style="border-bottom:1px solid #333;"> Hacer Pedido </th>
       </tr>
       
-					<?php
-					include 'config.php';
-					
-					if(isset($_GET['search'])){
-						$query = $_GET['query'];
+        <!-- Search goes here! -->
+ 
 
-						$sql = "select * from products where category like '%$query%' or name like '%$query%'";
-
-						$result = $db_link->query($sql);
-						if($result->num_rows > 0){
-							while($row = $result->fetch_array()){?>
-						<tr align="center" style="height:35px">
+  
+  		<!-- Search end here -->
+      
+       <?php
+require('config.php');
+$query="SELECT * FROM products";
+$result=mysqli_query($db_link, $query);
+while ($row=mysqli_fetch_array($result)){?>
+      
+      <tr align="center" style="height:35px">
       	<td style="border-bottom:1px solid #333;"> <?php echo $row['category']; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['name']; ?> </td>
-        <td style="border-bottom:1px solid #333;">$ <?php echo $row['retail']; ?> </td>
-        <td style="border-bottom:1px solid #333;"> <?php echo $row['quantity']; ?> pcs. </td>
+        <td style="border-bottom:1px solid #333;">S/ <?php echo $row['retail']; ?> </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['quantity']; ?> uni. </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['supplier']; ?> </td>
         <td style="border-bottom:1px solid #333;">
         
-<a href="process_sales.php?id=<?php echo md5($row['id']);?>"><input type="button" value="pick" style="width:90px; height:30px; color:#FFF; background: #930; border:1px solid #930; border-radius:3px;"></a>
+        
+        <a href="process_sales1.php?id=<?php echo md5($row['id']);?>"><input type="button" value="Pedir" style="width:90px; height:30px; color:#FFF; background: #930; border:1px solid #930; border-radius:3px;"></a>
         
         </td>
       </tr>
-						<?php
-					
-							}
-
-						}else{
-							echo "<center>No records</center>";
-						}
-					}
-				$db_link->close();
-				?>
-				</table>
-                </td>
+   <?php
+}?>
+      
+    </table>
+    
+  </td>
   </tr>
 </table>
 <br><br><br>
@@ -177,20 +195,6 @@ if(!isset($_SESSION['username'])){
 </table>
 </div>
 
-</div>
-
-
-<div id="popup-box1" class="popup-position">
-<div id="popup-wrapper">
-<div id="popup-container">
-    <div id="popup-head-color1">
-    <p style="text-align:right !important; font-family: 'Courier New', Courier, monospace;font-size:15px;"><a href= "javascript:void(0)" onclick="toggle_visibility('popup-box1')"><font color="#FFF"> X </font></a></p>
-    <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif;font-size:16px;"> Add Item Form </p>
-    </div>
-    <br />
-
-</div>
-</div>
 </div>
 
 </body>

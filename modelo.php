@@ -5,12 +5,7 @@
 <title>Ventas</title>
 </head>
 <?php error_reporting(0);
- include_once'./cabezera.php'; 
- $conf=$_GET['tconf'];
-if ($conf) {
- echo "<script>alert('Operacion Realizada exitosamente');</script>";
-
-} ?>
+ include_once'./cabezera.php';  ?>
 
 <script>
 	function toggle_visibility(id){
@@ -49,30 +44,38 @@ if ($conf) {
     </tr>
     
       <tr height="30px">
-        <th style="border-bottom:1px solid #333;"> DNI O RUC </th>
+        <th style="border-bottom:1px solid #333;"> Categoria </th>
         <th style="border-bottom:1px solid #333;"> Nombre </th>
-        <th style="border-bottom:1px solid #333;"> Contacto </th>
-        <th style="border-bottom:1px solid #333;"> Direccion </th>
-        <th style="border-bottom:1px solid #333;"> Notas </th>
+        <th style="border-bottom:1px solid #333;"> Precio </th>
+        <th style="border-bottom:1px solid #333;"> Cantidad Stock </th>
+        <th style="border-bottom:1px solid #333;"> Proveedor </th>
+         <th style="border-bottom:1px solid #333;"> Referencia </th>
         <th style="border-bottom:1px solid #333;">Hacer Pedido</th>
       </tr>
-    
+      
+        <!-- Search goes here! -->
+ 
+
+  
+  		<!-- Search end here -->
+      
        <?php
 require('config.php');
 if(isset($_GET['search'])){
             $query = $_GET['query'];
 
-            $sql = "SELECT * FROM ubereat.customers where concat(username,name) like '%$query%'";
+            $sql = "select * from products where category like '%$query%' or name like '%$query%'";
 
             $result = $db_link->query($sql);
             if($result->num_rows > 0){
               while($row = $result->fetch_array()){?>
-           <tr align="center" style="height:25px">
-        <td style="border-bottom:1px solid #333;"> <?php echo $row['username']; ?> </td>
+            <tr align="center" style="height:35px">
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['category']; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['name']; ?> </td>
-        <td style="border-bottom:1px solid #333;"> <?php echo $row['contact']; ?> </td>
-        <td style="border-bottom:1px solid #333;"> <?php echo $row['address']; ?> </td>
-        <td style="border-bottom:1px solid #333;"> <?php echo $row['note']; ?> </td>
+        <td style="border-bottom:1px solid #333;">S/ <?php echo $row['retail']; ?> </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['quantity']; ?> uni. </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['supplier']; ?> </td>
+         <td style="border-bottom:1px solid #333;"> <img src="imgplatos/<?php echo $row['id'].'.'.$row['ext'];?>"width="150" height="150"> </td>
         <td style="border-bottom:1px solid #333;">
         
         
@@ -88,16 +91,17 @@ if(isset($_GET['search'])){
               echo "<center>No records</center>";
             }
           }else{
-$query="SELECT * FROM customers";
+$query="SELECT * FROM products";
 $result=mysqli_query($db_link, $query);
 while ($row=mysqli_fetch_array($result)){?>
       
-      <tr align="center" style="height:25px">
-        <td style="border-bottom:1px solid #333;"> <?php echo $row['username']; ?> </td>
+      <tr align="center" style="height:35px">
+      	<td style="border-bottom:1px solid #333;"> <?php echo $row['category']; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['name']; ?> </td>
-        <td style="border-bottom:1px solid #333;"> <?php echo $row['contact']; ?> </td>
-        <td style="border-bottom:1px solid #333;"> <?php echo $row['address']; ?> </td>
-        <td style="border-bottom:1px solid #333;"> <?php echo $row['note']; ?> </td>
+        <td style="border-bottom:1px solid #333;">S/ <?php echo $row['retail']; ?> </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['quantity']; ?> uni. </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['supplier']; ?> </td>
+         <td style="border-bottom:1px solid #333;"> <img src="imgplatos/<?php echo $row['id'].'.'.$row['ext'];?>"width="150" height="150"> </td>
         <td style="border-bottom:1px solid #333;">
         
         

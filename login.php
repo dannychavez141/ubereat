@@ -77,7 +77,12 @@ if(isset($_POST['username'])){
 <td>Contraseña:</td>
 <td align="center"><input type="password" id="txtbox" name="password" placeholder="contraseña" required><br></td>
 </tr>
-
+<tr><td>Tipo:</td>
+<td align="center"><select name="tipo" id="txtbox">
+    <option>Cliente</option>
+    <option>Personal</option>
+    
+    </select><br></td></tr>
 <tr>
 	<td> &nbsp; </td>
 </tr>

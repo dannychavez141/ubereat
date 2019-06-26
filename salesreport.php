@@ -48,9 +48,7 @@
       <tr height="30px">
       	<th style="border-bottom:1px solid #333;"> Fecha </th>
       	<th style="border-bottom:1px solid #333;"> Clientes </th>
-        <th style="border-bottom:1px solid #333;"> Producto Vendido </th>
-        <th style="border-bottom:1px solid #333;"> Cantidad Vendida </th>
-        <th style="border-bottom:1px solid #333;"> Monto Pagado </th>
+        <th style="border-bottom:1px solid #333;"> Monto Pagago</th>
         <th style="border-bottom:1px solid #333;"> Ganancias </th>
       </tr>
       
