@@ -1,143 +1,47 @@
-<!doctype html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title> Animation Callbacks </title>
-	<script src="js/Chart.min.js"></script>
-	<script src="js/samples/utils.js"></script>
-	<style>
-	canvas {
-		-moz-user-select: none;
-		-webkit-user-select: none;
-		-ms-user-select: none;
-	}
-	</style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Sistema Delivery de Comida - UberEat</title>
 </head>
 
+<link rel="stylesheet" type="text/css" href="css/css1.css">
+
 <body>
-	<div id="container" style="width: 75%;">
-		<canvas id="canvas"></canvas>
-	</div>
-	<button id="randomizeData">Randomize Data</button>
-	<button id="addDataset">Add Dataset</button>
-	<button id="removeDataset">Remove Dataset</button>
-	<button id="addData">Add Data</button>
-	<button id="removeData">Remove Data</button>
-	<script>
-		var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-		var color = Chart.helpers.color;
-		var barChartData = {
-			labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-			datasets: [{
-				label: 'Dataset 1',
-				backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
-				borderColor: window.chartColors.red,
-				borderWidth: 1,
-				data: [
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor()
-				]
-			}, {
-				label: 'Dataset 2',
-				backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-				borderColor: window.chartColors.blue,
-				borderWidth: 1,
-				data: [
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor(),
-					randomScalingFactor()
-				]
-			}]
 
-		};
+<?php
+  include_once'./cabezera.php'; 
+?>
 
-		window.onload = function() {
-			var ctx = document.getElementById('canvas').getContext('2d');
-			window.myBar = new Chart(ctx, {
-				type: 'bar',
-				data: barChartData,
-				options: {
-					responsive: true,
-					legend: {
-						position: 'top',
-					},
-					title: {
-						display: true,
-						text: 'Chart.js Bar Chart'
-					}
-				}
-			});
+<br><br><br><br>
+<div id="bdcontainer">
+<table border="0" cellpadding="0" cellspacing="10" align="center">
+	<tr>
+    	<td><a href="estclie.php"><input type="button" id="bdnav7"></a></td>
+        <td><a href="estpla.php"><input type="button" id="bdnav8"></a></td>
+        <td><a href="estgan.php"><input type="button" id="bdnav9"></a></td>
+    </tr>
+    <tr>
+    	<td><a href="estprov.php"><input type="button" id="bdnav10"></a></td>
+        <td><a href="#"><input type="button" id="bdnav11"></a></td>
+        <td><a href="#"><input type="button" id="bdnav12"></a></td>
+    </tr>
+</table>
+</div>
 
-		};
+<div id="footer">
+<table border="0" cellpadding="15px" align="center"; style="size: 12px; font-family: 'Courier New', Courier, monospace; color: #FFF; font-size: 12px;">
+<tr>
+	<td>
+   &copy;2019 Todos los Derechos Reservados.  |  Diseñada por:<a href="https://www.facebook.com/repp0rt">Franco CV</a>  
+    </td>
+    </td>
+</tr>
+</table>
+</div>
 
-		document.getElementById('randomizeData').addEventListener('click', function() {
-			var zero = Math.random() < 0.2 ? true : false;
-			barChartData.datasets.forEach(function(dataset) {
-				dataset.data = dataset.data.map(function() {
-					return zero ? 0.0 : randomScalingFactor();
-				});
+</div>
 
-			});
-			window.myBar.update();
-		});
-
-		var colorNames = Object.keys(window.chartColors);
-		document.getElementById('addDataset').addEventListener('click', function() {
-			var colorName = colorNames[barChartData.datasets.length % colorNames.length];
-			var dsColor = window.chartColors[colorName];
-			var newDataset = {
-				label: 'Dataset ' + (barChartData.datasets.length + 1),
-				backgroundColor: color(dsColor).alpha(0.5).rgbString(),
-				borderColor: dsColor,
-				borderWidth: 1,
-				data: []
-			};
-
-			for (var index = 0; index < barChartData.labels.length; ++index) {
-				newDataset.data.push(randomScalingFactor());
-			}
-
-			barChartData.datasets.push(newDataset);
-			window.myBar.update();
-		});
-
-		document.getElementById('addData').addEventListener('click', function() {
-			if (barChartData.datasets.length > 0) {
-				var month = MONTHS[barChartData.labels.length % MONTHS.length];
-				barChartData.labels.push(month);
-
-				for (var index = 0; index < barChartData.datasets.length; ++index) {
-					// window.myBar.addData(randomScalingFactor(), index);
-					barChartData.datasets[index].data.push(randomScalingFactor());
-				}
-
-				window.myBar.update();
-			}
-		});
-
-		document.getElementById('removeDataset').addEventListener('click', function() {
-			barChartData.datasets.pop();
-			window.myBar.update();
-		});
-
-		document.getElementById('removeData').addEventListener('click', function() {
-			barChartData.labels.splice(-1, 1); // remove the label first
-
-			barChartData.datasets.forEach(function(dataset) {
-				dataset.data.pop();
-			});
-
-			window.myBar.update();
-		});
-	</script>
 </body>
-
 </html>
+

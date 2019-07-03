@@ -3,7 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Sistema Delivery de Comida - UberEat</title>
-<script language="JavaScript"> 
+
+<script language="JavaScript" > 
+
 function mueveReloj(){ 
       momentoActual = new Date() 
       hora = momentoActual.getHours() 

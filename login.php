@@ -79,8 +79,9 @@ if(isset($_POST['username'])){
 </tr>
 <tr><td>Tipo:</td>
 <td align="center"><select name="tipo" id="txtbox">
-    <option>Cliente</option>
-    <option>Personal</option>
+   <option>Personal</option> 
+   <option>Cliente</option>
+    
     
     </select><br></td></tr>
 <tr>
