@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-06-2019 a las 00:51:30
+-- Tiempo de generación: 03-07-2019 a las 21:32:17
 -- Versión del servidor: 5.5.40
 -- Versión de PHP: 5.5.19
 
@@ -22,6 +22,44 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `ubereat` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `ubereat`;
 
+DELIMITER $$
+--
+-- Funciones
+--
+DROP FUNCTION IF EXISTS `cantcompras`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `cantcompras`( clie int) RETURNS varchar(10) CHARSET utf8
+BEGIN
+DECLARE hor VARCHAR(30);
+SET hor=(SELECT count(id) FROM sales where idclie=clie);
+RETURN hor;
+END$$
+
+DROP FUNCTION IF EXISTS `gananciames`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `gananciames`( mes varchar(2),año varchar(6)) RETURNS int(11)
+BEGIN
+DECLARE hor int;
+SET hor=(select sum(d.cant*(p.retail-p.purchase)) from det_sales d join sales s  on d.idsale=s.id join  products  p on d.idprod=p.id   where MONTH(s.dates)=mes and YEAR(s.dates)=año);
+RETURN hor;
+END$$
+
+DROP FUNCTION IF EXISTS `platos`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `platos`( plat int) RETURNS int(11)
+BEGIN
+DECLARE hor VARCHAR(30);
+SET hor=(SELECT sum(cant) FROM ubereat.det_sales where idprod=plat);
+RETURN hor;
+END$$
+
+DROP FUNCTION IF EXISTS `proveedores`$$
+CREATE DEFINER=`root`@`localhost` FUNCTION `proveedores`( prov varchar(100)) RETURNS int(11)
+BEGIN
+DECLARE hor int;
+SET hor=(select count(id) from products where supplier=prov);
+RETURN hor;
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -38,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `username` varchar(8) NOT NULL,
   `password` varchar(15) NOT NULL,
   `access` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `customers`
@@ -46,7 +84,10 @@ CREATE TABLE IF NOT EXISTS `customers` (
 
 INSERT INTO `customers` (`id`, `name`, `contact`, `address`, `note`, `username`, `password`, `access`) VALUES
 (1, 'Arnaldo Vasquez Ruiz', '994 878 976', 'Jr. Tupac nÂ°450', 'no paga bien', '1234', '1234', 'Client'),
-(2, 'FREDY FERRARI', '952 654 215', 'jr.ALAMEDA 731', 'me va a jalar', '4321', '4321', 'Client');
+(2, 'FREDY FERRARI', '952 654 215', 'jr.ALAMEDA 731', 'me va a jalar', '4321', '4321', 'Client'),
+(3, 'FRANK RAMOS DEL AGUILA', '957 632 481', 'JR.LACALLE NÂ°541', 'El si paga bien', '12345', '12345', 'Client'),
+(4, 'PATRICIO DAVID LOPEZ PAREDES', '961 542 145', 'JR.LA MORQUE NÂ°322', 'llevar sencillo por que simpre tiene cheke', '54321', '54321', 'Client'),
+(5, 'MARIA CORTEZ CHUMBE', '956 241 146', 'JR.TUPAC S/N', 'POCAS COMPRAS', '654321', '654321', 'Client');
 
 -- --------------------------------------------------------
 
@@ -60,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `det_sales` (
   `idsale` int(11) DEFAULT NULL,
   `idprod` int(11) DEFAULT NULL,
   `cant` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `det_sales`
@@ -72,7 +113,14 @@ INSERT INTO `det_sales` (`iddet_sales`, `idsale`, `idprod`, `cant`) VALUES
 (3, 3, 1, 3),
 (4, 3, 2, 5),
 (5, 4, 1, 2),
-(6, 5, 2, 1);
+(6, 5, 2, 1),
+(7, 6, 1, 1),
+(8, 6, 2, 1),
+(9, 6, 3, 1),
+(10, 7, 2, 4),
+(11, 7, 4, 1),
+(12, 8, 5, 2),
+(13, 8, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -89,16 +137,21 @@ CREATE TABLE IF NOT EXISTS `products` (
   `purchase` int(11) NOT NULL,
   `retail` int(11) NOT NULL,
   `supplier` varchar(100) NOT NULL,
-  `ext` varchar(5) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  `ext` varchar(5) NOT NULL,
+  `detalle` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `products`
 --
 
-INSERT INTO `products` (`id`, `category`, `name`, `quantity`, `purchase`, `retail`, `supplier`, `ext`) VALUES
-(1, 'Almuerzos', 'Lomo Saltado', 42, 10, 15, 'Restaurant OrlandoÂ´s', 'jpg'),
-(2, 'Antojitos', 'Ceviche Simple', 27, 8, 12, 'PicaloÂ´s', 'jpg');
+INSERT INTO `products` (`id`, `category`, `name`, `quantity`, `purchase`, `retail`, `supplier`, `ext`, `detalle`) VALUES
+(1, 'Almuerzos', 'Lomo Saltado', 41, 10, 15, 'Restaurant OrlandoÂ´s', 'jpg', 'ta rico pero le falta sal '),
+(2, 'Antojitos', 'Ceviche Simple', 22, 8, 12, 'PicaloÂ´s', 'jpg', 'le falta ajisito'),
+(3, 'Chifa', 'Arroz Chaufa Simple', 59, 6, 8, 'Restaurant OrlandoÂ´s', 'jpg', 'tiene pollito, arroz, cebollita china y sillausito'),
+(4, 'Almuerzos', 'TALLARINES ROJOS', 19, 8, 10, 'Restaurant OrlandoÂ´s', 'jpg', '-Tallarines cocidos al dente\r\n-Salsa roja con carne molida y especias\r\n'),
+(5, 'Chifa', 'POLLO ENRROLLADO CON VERDURAS', 38, 10, 12, 'CHIFA FELICIDAD', 'png', '-VERDURAS FRESCAS\r\n-ENRROLLADO DE POLLO Y JAMON'),
+(6, 'Chifa', 'AEROPUERTO FELICIDAD', 29, 8, 11, 'CHIFA FELICIDAD', 'png', '-CHAUFITA CON FIDEITOS\r\n-TIENE BASTATE PRESA :3 ');
 
 -- --------------------------------------------------------
 
@@ -111,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `sales` (
 `id` int(11) NOT NULL,
   `dates` date NOT NULL,
   `idclie` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `sales`
@@ -122,7 +175,10 @@ INSERT INTO `sales` (`id`, `dates`, `idclie`) VALUES
 (2, '2019-06-26', 1),
 (3, '2019-06-26', 2),
 (4, '2019-06-26', 1),
-(5, '2019-06-26', 1);
+(5, '2019-06-26', 1),
+(6, '2019-07-03', 4),
+(7, '2019-07-03', 4),
+(8, '2019-07-03', 5);
 
 -- --------------------------------------------------------
 
@@ -138,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `supplier` (
   `address` varchar(100) NOT NULL,
   `contactno` varchar(11) NOT NULL,
   `note` varchar(200) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `supplier`
@@ -146,7 +202,10 @@ CREATE TABLE IF NOT EXISTS `supplier` (
 
 INSERT INTO `supplier` (`id`, `suppliername`, `contactperson`, `address`, `contactno`, `note`) VALUES
 (1, 'Restaurant OrlandoÂ´s', 'Orlando Ramos del Aguila', 'Av.Alamedas nÂ°213', '999 354 684', 'ultima opcion'),
-(2, 'PicaloÂ´s', 'Patricio Lopez', 'jr.diego de almagro 731', '964853147', 'solo pasivos');
+(2, 'PicaloÂ´s', 'Patricio Lopez', 'jr.diego de almagro 731', '964853147', 'solo pasivos'),
+(3, 'KFC OPEN PLAZA', 'DARWIN LOPEZ', 'AV.CENTENARIO', '987654125', 'SI CONTESTA'),
+(4, 'MI POLLO', 'FERNANDO CASAS', 'AV.YARINA', '963258741', 'TA GORDITO'),
+(5, 'CHIFA FELICIDAD', 'JAIRO WONK', 'JR.IMACULADA', '986524125', 'ME DEBE 30 SOLES');
 
 -- --------------------------------------------------------
 
@@ -218,27 +277,27 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `customers`
 --
 ALTER TABLE `customers`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `det_sales`
 --
 ALTER TABLE `det_sales`
-MODIFY `iddet_sales` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `iddet_sales` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `sales`
 --
 ALTER TABLE `sales`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `supplier`
 --
 ALTER TABLE `supplier`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
