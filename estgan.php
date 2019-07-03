@@ -44,8 +44,8 @@ $compras="";
 
 <?php 
 $año=date('Y');
-$meses = array('enero','febrero','marzo','abril','mayo','junio','julio',
-               'agosto','septiembre','octubre','noviembre','diciembre');
+$meses = array('Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio',
+               'Agosto','Septiembre','Octubre','Noviembre','Diciembre');
 for ($i=1; $i <= 12 ; $i++) { 
 	$query="select ubereat.gananciames('$i','$año');";
 $result=mysqli_query($db_link, $query);
@@ -108,14 +108,6 @@ $compras=substr($compras,0,-1);
                             display: true,
                             position: 'left',
                             id: 'y-axis-1',
-                        }, {
-                            type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-                            display: true,
-                            position: 'right',
-                            id: 'y-axis-2',
-                            gridLines: {
-                                drawOnChartArea: false
-                            }
                         }],
                     }
                 }

@@ -63,8 +63,8 @@ $compras=substr($compras,0,-1);
                     window.chartColors.purple,
                     window.chartColors.red,
                     window.chartColors.blue,
-                    window.chartColors.yelow,
-                    window.chartColors.green
+                    window.chartColors.green,
+                    window.chartColors.black
                 ],
                 yAxisID: 'y-axis-1',
                 data: [
@@ -95,14 +95,6 @@ $compras=substr($compras,0,-1);
                             display: true,
                             position: 'left',
                             id: 'y-axis-1',
-                        }, {
-                            type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-                            display: true,
-                            position: 'right',
-                            id: 'y-axis-2',
-                            gridLines: {
-                                drawOnChartArea: false
-                            }
                         }],
                     }
                 }
