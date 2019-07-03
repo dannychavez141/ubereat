@@ -9,6 +9,7 @@ $quantity=$_POST['quantity'];
 $purchase=$_POST['purchase'];
 $retail=$_POST['retail'];
 $supplier=$_POST['supplier'];
+$det=$_POST['det'];
 $url=$_SERVER['DOCUMENT_ROOT'].'/ubereat/imgplatos/';
 $query="SELECT count(ID)+1 FROM ubereat.products;";
 	$result=mysqli_query($db_link, $query);
@@ -22,7 +23,7 @@ if($_FILES['imgref']['name'] != null && $_FILES['imgref']['size'] > 0 )
 $ext=$tipo->getExtension();
  $destino= $url.$cod.'.'.$ext;
 move_uploaded_file($_FILES['imgref']['tmp_name'],$destino);
-$register="INSERT INTO `ubereat`.`products` (`category`, `name`, `quantity`, `purchase`, `retail`, `supplier`, `ext`) VALUES('$category','$name','$quantity','$purchase','$retail','$supplier','$ext')" or die("error".mysqli_errno($db_link));
+$register="INSERT INTO `ubereat`.`products` (`category`, `name`, `quantity`, `purchase`, `retail`, `supplier`, `ext`,`detalle`) VALUES('$category','$name','$quantity','$purchase','$retail','$supplier','$ext','$det')" or die("error".mysqli_errno($db_link));
 	$result=mysqli_query($db_link,$register);
 		header('location:products.php');
 mysqli_close($db_link);

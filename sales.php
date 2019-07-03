@@ -85,7 +85,7 @@ if(isset($_GET['search'])){
               }
 
             }else{
-              echo "<center>No records</center>";
+              echo "<center>No Resultados</center>";
             }
           }else{
 $query="SELECT * FROM customers";

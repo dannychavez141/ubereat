@@ -27,7 +27,7 @@
       <tr>
         <td width="750" align="right">
         
-        <form action="result_customer.php" method="get" ecntype="multipart/data-form">
+        <form action="customers.php" method="get" ecntype="multipart/data-form">
         <input type="text" name="query" style="border:1px solid #CCC; color: #333; width:210px; height:30px;" placeholder="Buscar Clientes..." /><input type="submit" id="btnsearch" value="Buscar" name="search" />
         </form>
         
@@ -67,6 +67,32 @@
       
        <?php
 require('config.php');
+
+if(isset($_GET['search'])){
+            $query = $_GET['query'];
+        $query="SELECT * FROM customers where concat(username,name,contact) like '%$query%'";
+$result=mysqli_query($db_link, $query);
+if($result->num_rows > 0){
+while ($row=mysqli_fetch_array($result)){?>
+<tr align="center" style="height:25px">
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['username']; ?> </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['name']; ?> </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['contact']; ?> </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['address']; ?> </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['note']; ?> </td>
+        <td style="border-bottom:1px solid #333;">
+        
+<a href="delete_customer.php?id=<?php echo md5($row['id']);?>"><input type="button" value="Eliminar" style="width:15; height:20; color:#FFF; background: #900; border:1px solid #900; border-radius:3px;"></a>
+        </td>
+      </tr>
+
+            <?php
+}
+            }else{
+              echo "<center>No Resultados</center>";
+            }
+          }else{
+
 $query="SELECT * FROM customers";
 $result=mysqli_query($db_link, $query);
 while ($row=mysqli_fetch_array($result)){?>
@@ -79,12 +105,12 @@ while ($row=mysqli_fetch_array($result)){?>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['note']; ?> </td>
         <td style="border-bottom:1px solid #333;">
         
-<a href="delete_customer.php?id=<?php echo md5($row['id']);?>"><input type="button" value="Eliminar" style="width:15; height:20; color:#FFF; background: #900; border:1px solid #900; border-radius:3px;"></a>
+<a href="edit_customer.php?id=<?php echo md5($row['id']);?>"><input type="button" value="Editar" style="width:50px; height:20; color:#FFF; background:#069; border:1px solid #069; border-radius:3px;"></a>
         
         </td>
       </tr>
    <?php
-}?>
+}}?>
       
     </table>
     

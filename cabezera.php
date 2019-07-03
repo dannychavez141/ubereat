@@ -101,6 +101,7 @@ if($_SESSION['access']=='Salesperson'){
        <th width="90" scope="col"><a href="customers.php">Clientes</a></th>
        <th width="90" scope="col"><a href="supplier.php">Proveedor</a></th>
        <th width="112" scope="col"><a href="salesreport.php">Reporte de Ventas</a></th>
+        <th width="112" scope="col"><a href="estadisticas.php">Estadisticas</a></th>
        </tr>
      </table>
       </td>

@@ -61,12 +61,13 @@ while ($row=mysqli_fetch_array($result)){
     <table border="1" cellpadding="0" cellspacing="0"  width="80%" align="center">
     
      <tr>
-     <th colspan="8"  height="30px" style="border-bottom:1px solid #030; background: #030; color:#FFF;"> Seleccionar Platillos </th>
+     <th colspan="9"  height="30px" style="border-bottom:1px solid #030; background: #030; color:#FFF;"> Seleccionar Platillos </th>
     </tr>
     
       <tr height="30px">
         <th style="border-bottom:1px solid #333;"> Categoria </th>
         <th style="border-bottom:1px solid #333;"> Nombre </th>
+        <th style="border-bottom:1px solid #333;"> Detalles </th>
         <th style="border-bottom:1px solid #333;"> Precio </th>
         <th style="border-bottom:1px solid #333;"> Stock </th>
         <th style="border-bottom:1px solid #333;"> Local </th>
@@ -95,6 +96,7 @@ if(isset($_GET['search'])){
             <tr align="center" style="height:35px">
        <td style="border-bottom:1px solid #333;"> <?php echo $row['category']; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['name']; ?> </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['detalle']; ?> </td>
         <td style="border-bottom:1px solid #333;">S/ <?php echo $row['retail']; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['quantity']; ?> uni. </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['supplier']; ?> </td>
@@ -131,6 +133,7 @@ while ($row=mysqli_fetch_array($result)){?>
       <tr align="center" style="height:35px">
         <td style="border-bottom:1px solid #333;"> <?php echo $row['category']; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['name']; ?> </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['detalle']; ?> </td>
         <td style="border-bottom:1px solid #333;">S/ <?php echo $row['retail']; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['quantity']; ?> uni. </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['supplier']; ?> </td>

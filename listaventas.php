@@ -94,11 +94,11 @@ while ($row=mysqli_fetch_array($result)){
 
         <td style="border-bottom:1px solid #333;"> <?php echo $bol.$row[0]; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row[1]; ?> </td>
-<?php $detalle="SELECT * FROM ubereat.det_sales d join products p on d.idprod=d.idprod where d.idsale='$row[0]'";
+<?php $detalle="SELECT d.cant,p.retail FROM ubereat.det_sales d join products p on d.idprod=p.id where d.idsale='$row[0]'";
 $monto=mysqli_query($db_link, $detalle);
 $total=0;
 while ($fila=mysqli_fetch_array($monto)){
-$total=$total+ ($fila[3]*$fila[8]);
+$total=$total+($fila[0]*$fila[1]);
  }?>
       <td style="border-bottom:1px solid #333;">S/ <?php echo $total; ?> </td>
         <td style="border-bottom:1px solid #333;">
@@ -124,17 +124,19 @@ while ($row=mysqli_fetch_array($result)){
       <tr align="center" style="height:35px">
         <td style="border-bottom:1px solid #333;"> <?php echo $bol.$row[0]; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row[1]; ?> </td>
-<?php $detalle="SELECT * FROM ubereat.det_sales d join products p on d.idprod=d.idprod where d.idsale='$row[0]'";
+<?php $detalle="SELECT d.cant,p.retail FROM ubereat.det_sales d join products p on d.idprod=p.id where d.idsale='$row[0]'";
 $monto=mysqli_query($db_link, $detalle);
 $total=0;
 while ($fila=mysqli_fetch_array($monto)){
-$total=$total+ ($fila[3]*$fila[8]);
+  $cant=$fila[0];
+  $precio=$fila[1];
+$total=$total+($cant*$precio);
  }?>
       <td style="border-bottom:1px solid #333;">S/ <?php echo $total; ?> </td>
         <td style="border-bottom:1px solid #333;">
 <input type="hidden" name="idplato" value="<?php echo $row['id']; ?>">
 <input type="hidden" name="id" value="<?php echo $id; ?>">
-        <a href="pdfrecibo.php?rec=<?php echo md5($row[0]) ?>"><input type="submit" value="Ver" style="width:90px; height:30px; color:#FFF; background: #930; border:1px solid #930; border-radius:3px;"></a>
+        <a href="pdfrecibo.php?rec=<?php echo md5($row[0]) ?>" target="_blank"><input type="button" value="Ver" style="width:90px; height:30px; color:#FFF; background: #930; border:1px solid #930; border-radius:3px;"></a>
         </td>
       </tr>
     

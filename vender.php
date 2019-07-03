@@ -45,7 +45,7 @@ unset($_SESSION['cant']);
         mkdir($dir);
   
         //Declaramos la ruta y nombre del archivo a generar
-  $filename = $dir.md5($codventa).'.png';
+  $filename = $dir.$codventa.'.png';
  
         //Parametros de Condiguración
   

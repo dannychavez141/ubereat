@@ -26,7 +26,7 @@
       <tr>
         <td width="741" align="right">
         
-        <form action="result_products.php" method="get" ecntype="multipart/data-form">
+        <form action="products.php" method="get" ecntype="multipart/data-form">
         <input type="text" name="query" style="border:1px solid #CCC; color: #333; width:210px; height:30px;" placeholder="Buscar Platillo..." /><input type="submit" id="btnsearch" value="Buscar" name="search" />
         </form>
         
@@ -47,12 +47,13 @@
     <table border="1" cellpadding="0" cellspacing="0" align="center" width="80%" style="border:1px solid #033; color:#033;">
     
      <tr>
-     <th colspan="8" align="center" height="55px" style="border-bottom:1px solid #033; background: #033; color:#FFF;"> Tabla - Informacion de Platillos</th>
+     <th colspan="9" align="center" height="55px" style="border-bottom:1px solid #033; background: #033; color:#FFF;"> Tabla - Informacion de Platillos</th>
     </tr>
     
       <tr height="30px">
         <th style="border-bottom:1px solid #333;"> Categoria </th>
         <th style="border-bottom:1px solid #333;"> Nombre </th>
+        <th style="border-bottom:1px solid #333;"> Detalles </th>
         <th style="border-bottom:1px solid #333;"> Cantidad Stock </th>
         <th style="border-bottom:1px solid #333;"> Precio de Compra </th>
         <th style="border-bottom:1px solid #333;"> Precio Venta </th>
@@ -69,6 +70,35 @@
       
        <?php
 require('config.php');
+if(isset($_GET['search'])){
+            $query = $_GET['query'];
+        $query="SELECT * FROM products where concat(category,name,supplier) like '%$query%'";
+$result=mysqli_query($db_link, $query);
+if($result->num_rows > 0){
+while ($row=mysqli_fetch_array($result)){?>
+
+<tr align="center" style="height:25px">
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['category']; ?> </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['name']; ?> </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['detalle']; ?> </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['quantity']; ?> uni. </td>
+        <td style="border-bottom:1px solid #333;">S/ <?php echo $row['purchase']; ?> </td>
+        <td style="border-bottom:1px solid #333;">S/ <?php echo $row['retail']; ?> </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['supplier']; ?> </td>
+         <td style="border-bottom:1px solid #333;"> <img src="imgplatos/<?php echo $row['id'].'.'.$row['ext'];?>"width="100" height="100"> </td>
+        <td style="border-bottom:1px solid #333;">
+        
+        
+        <a href="edit_item.php?id=<?php echo md5($row['id']);?>"><input type="button" value="Editar" style="width:50px; height:20; color:#FFF; background:#069; border:1px solid #069; border-radius:3px;"></a>
+        </td>
+      </tr>
+
+            <?php
+}
+            }else{
+              echo "<center>No Resultados</center>";
+            }
+          }else{
 $query="SELECT * FROM products";
 $result=mysqli_query($db_link, $query);
 while ($row=mysqli_fetch_array($result)){?>
@@ -76,6 +106,7 @@ while ($row=mysqli_fetch_array($result)){?>
       <tr align="center" style="height:25px">
       	<td style="border-bottom:1px solid #333;"> <?php echo $row['category']; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['name']; ?> </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row['detalle']; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['quantity']; ?> uni. </td>
         <td style="border-bottom:1px solid #333;">S/ <?php echo $row['purchase']; ?> </td>
         <td style="border-bottom:1px solid #333;">S/ <?php echo $row['retail']; ?> </td>
@@ -88,7 +119,7 @@ while ($row=mysqli_fetch_array($result)){?>
         </td>
       </tr>
    <?php
-}?>
+}}?>
       
     </table>
     
@@ -118,10 +149,8 @@ while ($row=mysqli_fetch_array($result)){?>
     <p style="text-align:right !important; font-family: 'Courier New', Courier, monospace;font-size:15px;"><a href= "javascript:void(0)" onclick="toggle_visibility('popup-box1')"><font color="#FFF"> X </font></a></p>
     <p style="font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif;font-size:16px;">Formulario de Platillos y Bebidas</p>
     </div>
-    <br>
     <form action="add_item.php" method="POST" enctype="multipart/form-data">
     <table border="0" align="center">
-    
     <tr>
     <td align="right">Categoria:</td>
     <td>
@@ -136,12 +165,15 @@ while ($row=mysqli_fetch_array($result)){?>
     </select>
     </td>
     </tr>
-    
     <tr>
     <td align="right">Nombre:</td>
-    <td><input type="text" id="txtbox" name="name" placeholder="Nombre" required><br></td>
+    <td><input type="text" id="txtbox" name="name" placeholder="Nombre" required maxlength="30"><br></td>
     </tr>
-    
+    <tr>
+    <td align="right">Detalle:</td>
+    <td>
+   <textarea name="det" rows="2" cols="25" placeholder="Escribir detalle aqui" maxlength="150"></textarea>
+    </tr>
     <tr>
     <td align="right">Cantidad:</td>
     <td><input type="number" id="txtbox" min="1" name="quantity" maxlength="11" placeholder="Cantidad" required><br></td>
@@ -156,7 +188,6 @@ while ($row=mysqli_fetch_array($result)){?>
     <td align="right">Precio de Venta:</td>
     <td><input type="number" id="txtbox" name="retail" maxlength="11" placeholder="Precio de Venta" required><br></td>
     </tr>
-    
     <tr>
     <td align="right">Proveedor:</td>
     <td>

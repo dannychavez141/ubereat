@@ -142,9 +142,10 @@ if(isset($_POST['update'])){
 	$quantity = $_POST['quantity'];
 	$purchase = $_POST['purchase'];
 	$retail = $_POST['retail'];
+  $detalle = $_POST['det'];
 	$supplier = $_POST['supplier'];
 
-	$insert = "UPDATE products set category = '$category', name = '$name', quantity = '$quantity', purchase = '$purchase', retail = '$retail', supplier = '$supplier' where md5(id) = '$ID'";
+	$insert = "UPDATE products set category = '$category', name = '$name', quantity = '$quantity', purchase = '$purchase', retail = '$retail', supplier = '$supplier',detalle='$detalle ' where md5(id) = '$ID'";
 	
 	if($db_link->query($insert)== TRUE){
 
@@ -177,7 +178,11 @@ if(isset($_POST['update'])){
     <td align="right">Nombre:</td>
     <td><input type="text" id="txtbox" name="name" placeholder="Nombre" value="<?php echo $row['name'];?>" required><br></td>
     </tr>
-    
+     <tr>
+    <td align="right">Detalle:</td>
+    <td>
+   <textarea name="det" rows="2" cols="25" placeholder="Escribir detalle aqui" ><?php echo $row['detalle'];?></textarea>
+    </tr>
     <tr>
     <td align="right">Cantidad:</td>
     <td><input type="text" id="txtbox" name="quantity" placeholder="Cantidad" value="<?php echo $row['quantity'];?>" required><br></td>
@@ -241,6 +246,7 @@ while ($row1=mysqli_fetch_array($result1)){?>
       <tr height="30px">
         <th style="border-bottom:1px solid #333;"> Categoria </th>
         <th style="border-bottom:1px solid #333;"> Nombre </th>
+        <th style="border-bottom:1px solid #333;"> Detalle </th>
         <th style="border-bottom:1px solid #333;"> Cantidad Stock </th>
         <th style="border-bottom:1px solid #333;"> Precio de Compra </th>
         <th style="border-bottom:1px solid #333;"> Precio Venta </th>
@@ -257,6 +263,7 @@ while ($row=mysqli_fetch_array($result)){?>
       <tr align="center" height="25px;">
       	<td style="border-bottom:1px solid #333;"> <?php echo $row['category']; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['name']; ?> </td>
+<td style="border-bottom:1px solid #333;"> <?php echo $row['detalle']; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row['quantity']; ?> pcs. </td>
         <td style="border-bottom:1px solid #333;">$ <?php echo $row['purchase']; ?> </td>
         <td style="border-bottom:1px solid #333;">$ <?php echo $row['retail']; ?> </td>

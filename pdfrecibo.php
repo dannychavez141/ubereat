@@ -19,6 +19,7 @@ $rec = $_GET['rec'];
 	$pdf->SetX(125);
 	$pdf->Cell(25,4, utf8_decode('Recibo N°:'),1,1,'C');
 	$pdf->SetX(125);
+	$cod=$row[0];
 	$pdf->Cell(25,5,utf8_decode($bol.$row[0]),1,1,'C');
 	$pdf->SetX(10);
 	$pdf->Cell(50,4, 'DNI/RUC Cliente:'.utf8_decode($row[1]),0,1,'C');
@@ -40,7 +41,7 @@ $rec = $_GET['rec'];
 	$pdf->Cell(30,6,'PRECIO UNI. S/',1,0,'C',1);
 	$pdf->Cell(30,6,'MONTO TOTAL S/',1,1,'C',1);
 	$pdf->SetFont('Arial','',8);
-	$query = "SELECT ds.cant,p.category,p.name,p.retail FROM ubereat.det_sales ds join  products p on ds.idprod=p.id where  md5(ds.idsale)='$rec'";
+	$query = "SELECT ds.cant,p.category,p.name,p.retail FROM ubereat.det_sales ds join  products p on ds.idprod=p.id where  ds.idsale='$cod'";
      $total=0;
 	$resultado = $mysqli->query($query);
 while($row = $resultado->fetch_array())
@@ -51,7 +52,8 @@ while($row = $resultado->fetch_array())
 		$pdf->Cell(30,6,utf8_decode($row[3]).'.00',1,0,'C');
 		$pdf->Cell(30,6,utf8_decode($row[3]*$row[0]).'.00',1,1,'C');
 		$total=$total+($row[3]*$row[0]);
-	}$pdf->SetX(15);
+	}
+	$pdf->SetX(15);
 	$pdf->Cell(120,6,'TOTAL:',1,0,'C',1);
 	$pdf->Cell(30,6,utf8_decode($total).'.00',1,1,'C',1);
 		
