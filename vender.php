@@ -33,6 +33,30 @@ $actualizar=mysqli_query($db_link,$detalle);
 
 unset($_SESSION['plato']);
 unset($_SESSION['cant']);
+
+//Agregamos la libreria para genera códigos QR
+  require "phpqrcode/qrlib.php";    
+  
+  //Declaramos una carpeta temporal para guardar la imagenes generadas
+  $dir = 'qr/';
+  
+  //Si no existe la carpeta la creamos
+  if (!file_exists($dir))
+        mkdir($dir);
+  
+        //Declaramos la ruta y nombre del archivo a generar
+  $filename = $dir.md5($codventa).'.png';
+ 
+        //Parametros de Condiguración
+  
+  $tamaño = 10; //Tamaño de Pixel
+  $level = 'H'; //Precisión Baja
+  $framSize = 3; //Tamaño en blanco
+  $contenido = "http://192.168.1.38:81/ubereat/pdfrecibo.php?rec=".md5($codventas); //Texto
+  
+        //Enviamos los parametros a la Función para generar código QR 
+  QRcode::png($contenido, $filename, $level, $tamaño, $framSize); 
+  
 header('location:sales.php?tconf=true');
 ?>
 	

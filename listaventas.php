@@ -45,7 +45,7 @@ while ($row=mysqli_fetch_array($result)){
         
         <form action="listaventas.php" method="get" ecntype="multipart/data-form">
 <input type="hidden" name="id" value="<?php echo $id; ?>" />
-        <input type="text" name="query" style="border:1px solid #CCC; color: #333; width:210px; height:30px;" placeholder="Buscar Ventas por fecha..." /><input type="submit" id="btnsearch" value="Buscar" name="search" /> 
+        <input type="date" name="query" value="<?php echo date("Y-m-d");?>"style="border:1px solid #CCC; color: #333; width:210px; height:30px;" placeholder="Buscar Ventas por fecha..." /><input type="submit" id="btnsearch" value="Buscar" name="search" /><a href="listaventas.php?id=<?php echo $id ?>"><input type="button" id="btnsearch" value="Quitar filtro" name="search" /></a>
         </form>
       </td>
       </tr>
@@ -82,37 +82,17 @@ require('config.php');
 if(isset($_GET['search'])){
             $query = $_GET['query'];
 
-            $sql = "select * from products where category like '%$query%' or name like '%$query%'";
-
-            $result = $db_link->query($sql);
-            if($result->num_rows > 0){
-              while($row = $result->fetch_array()){?>
-            <tr align="center" style="height:35px">
-        <td style="border-bottom:1px solid #333;"><?php echo $row['category']; ?> </td>
-        <td style="border-bottom:1px solid #333;"><?php echo $row['name']; ?> </td>
-        <td style="border-bottom:1px solid #333;">S/<?php echo $row['retail']; ?> </td>
-  
-        <td style="border-bottom:1px solid #333;">
-        
-        
-        <a href="process_sales.php?id=<?php echo md5($row['id']);?>"><input type="button" value="Ver" style="width:90px; height:30px; color:#FFF; background: #930; border:1px solid #930; border-radius:3px;"></a>
-        
-        </td>
-      </tr>
-            <?php
-          
-              }
-
-            }else{
-              echo "<center>No records</center>";
-            }
-          }else{
-$query="SELECT * FROM ubereat.sales s join customers c on s.idclie=c.id where md5(c.id)='$id'";
-$result=mysqli_query($db_link, $query);
-while ($row=mysqli_fetch_array($result)){?>
-      <form action="agregar.php" method="post" ecntype="multipart/data-form">
+           $sql="SELECT * FROM ubereat.sales s join customers c on s.idclie=c.id where md5(c.id)='$id' and s.dates='$query'";
+$result=mysqli_query($db_link, $sql);
+while ($row=mysqli_fetch_array($result)){
+  if($row[0]<10){$bol='B-001-000';}
+  if($row[0]<100 && $row[0]>=10){$bol='B-001-00';}
+  if($row[0]<1000 && $row[0]>=100){$bol='B-001-0';}
+  if($row[0]<10000 && $row[0]>=1000){$bol='B-001-';}?>
+      
       <tr align="center" style="height:35px">
-        <td style="border-bottom:1px solid #333;"> <?php echo $row[0]; ?> </td>
+
+        <td style="border-bottom:1px solid #333;"> <?php echo $bol.$row[0]; ?> </td>
         <td style="border-bottom:1px solid #333;"> <?php echo $row[1]; ?> </td>
 <?php $detalle="SELECT * FROM ubereat.det_sales d join products p on d.idprod=d.idprod where d.idsale='$row[0]'";
 $monto=mysqli_query($db_link, $detalle);
@@ -127,7 +107,37 @@ $total=$total+ ($fila[3]*$fila[8]);
         <input type="submit" value="Ver" style="width:90px; height:30px; color:#FFF; background: #930; border:1px solid #930; border-radius:3px;">
         </td>
       </tr>
-       </form>
+            <?php
+          
+              }
+
+            
+          }else{
+$query="SELECT * FROM ubereat.sales s join customers c on s.idclie=c.id where md5(c.id)='$id'";
+$result=mysqli_query($db_link, $query);
+while ($row=mysqli_fetch_array($result)){
+  if($row[0]<10){$bol='B-001-000';}
+  if($row[0]<100 && $row[0]>=10){$bol='B-001-00';}
+  if($row[0]<1000 && $row[0]>=100){$bol='B-001-0';}
+  if($row[0]<10000 && $row[0]>=1000){$bol='B-001-';}?>
+      
+      <tr align="center" style="height:35px">
+        <td style="border-bottom:1px solid #333;"> <?php echo $bol.$row[0]; ?> </td>
+        <td style="border-bottom:1px solid #333;"> <?php echo $row[1]; ?> </td>
+<?php $detalle="SELECT * FROM ubereat.det_sales d join products p on d.idprod=d.idprod where d.idsale='$row[0]'";
+$monto=mysqli_query($db_link, $detalle);
+$total=0;
+while ($fila=mysqli_fetch_array($monto)){
+$total=$total+ ($fila[3]*$fila[8]);
+ }?>
+      <td style="border-bottom:1px solid #333;">S/ <?php echo $total; ?> </td>
+        <td style="border-bottom:1px solid #333;">
+<input type="hidden" name="idplato" value="<?php echo $row['id']; ?>">
+<input type="hidden" name="id" value="<?php echo $id; ?>">
+        <a href="pdfrecibo.php?rec=<?php echo md5($row[0]) ?>"><input type="submit" value="Ver" style="width:90px; height:30px; color:#FFF; background: #930; border:1px solid #930; border-radius:3px;"></a>
+        </td>
+      </tr>
+    
    <?php
 }}?>
       
