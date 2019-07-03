@@ -161,7 +161,6 @@ while ($row=mysqli_fetch_array($result)){?>
     </table>
     </form>
 <br><br><br>
-<div id="bdcontainer"></div>
 
 <div id="footer">
 <table border="0" cellpadding="15px" align="center"; style="size: 12px; font-family: 'Courier New', Courier, monospace; color: #FFF; font-size: 12px;">

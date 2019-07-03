@@ -20,15 +20,13 @@ $result_login=mysqli_query($db_link, $login);
 		window.location.href = "login.php";
 	</script><?php
 	}
-	mysqli_close($db_link);}else{
+	mysqli_close($db_link);}else if ($tipo=='Cliente'){
 
 $login="SELECT * FROM ubereat.customers WHERE username='$username' AND password='$password'";
 $result_login=mysqli_query($db_link, $login); 
 
 	if (@mysqli_num_rows($result_login)==1){
 		$_SESSION=mysqli_fetch_array($result_login,MYSQLI_ASSOC);
-		session_register('plato');
-        session_register('cant');
 		header('location:index.php');
 	}else{?>
 	<script type="text/javascript">
