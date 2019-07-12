@@ -29,7 +29,7 @@ $actualizar=mysqli_query($db_link,$resta);
 $detalle = "INSERT INTO `ubereat`.`det_sales` (`idsale`, `idprod`, `cant`) VALUES ('$codventa', '$platos[$i]', '$cant');";
 $actualizar=mysqli_query($db_link,$detalle);
  //$suma=$suma+$stotal;
-}}}else{header('location:carrito.php?tconf=true');}
+}}}else{header('location:carrito2.php?tconf=true');}
 
 unset($_SESSION['plato']);
 unset($_SESSION['cant']);
