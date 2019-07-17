@@ -26,14 +26,37 @@ require('config.php');
 $sql="SELECT * FROM ubereat.sales s join customers c on s.idclie=c.id join estado e on s.est=e.idestado join evalucion ev on s.id=ev.idsale where md5(s.id)='$id'";
 $result=mysqli_query($db_link, $sql);
 while ($row=mysqli_fetch_array($result)){
-  echo $row[2];
+ 
           
-              ?>
+              ?><form action="add_eval.php" method="post">
       <center><table>
-        <tr><td><h1>EVALUAR COMPRA</h1></td></tr>
+        <tr><td colspan="2"><h1>EVALUACION Y ESTADO DE  COMPRA</h1></td></tr>
+<tr><td><h2>ESTADO DE PEDIDO:</h2></td><td>
+  <select style="font-size:18pt" name="est">
+    <option value="<?php echo $row[12]; ?>"><?php echo $row[13]; ?></option>
+    <option value="2">EN CAMINO</option>
+     <option value="1">ENTREGADO</option>
+     <option value="3">PEDIDO</option>
+  </select>
+  <input type="hidden" name="cod" value="<?php echo $row[0]; ?>">
+  <input type="hidden" name="clie" value="<?php echo md5($row[2]); ?>">
+</td></tr>
 
+<tr><td><h2>EVALUACION:</h2></td><?php if ($row[15]==0) {
+        $eval='SIN EVALUACION';
+      ?>
+      <td style="border-bottom:1px solid #333;"> <?php echo $eval; ?> </td>
+<?php }else{ 
+  
+?><td> 
+<?php for ($i=0; $i < $row[15]; $i++) {  ?>
+<img src="images/star.jpg"width="30" height="30">
+<?php }?>
+</td> 
+<?php } ?></tr>
+<tr><td colspan="2"><button><h2>GUARDAR CAMBIO</h2></button></td></tr>
       </table></center>
-   
+   </form>
     <?php } ?>
 <br><br><br>
 <div id="bdcontainer"></div>

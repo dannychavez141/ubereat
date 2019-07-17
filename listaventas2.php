@@ -68,7 +68,10 @@ while ($row=mysqli_fetch_array($result)){
         <th style="border-bottom:1px solid #333;"> RECIBO N° </th>
         <th style="border-bottom:1px solid #333;"> FECHA</th>
         <th style="border-bottom:1px solid #333;"> MONTO DE VENTA </th>
+         <th style="border-bottom:1px solid #333;">ESTADO</th>
+         <th style="border-bottom:1px solid #333;">EVALUACION</th>
         <th style="border-bottom:1px solid #333;">VER RECIBO</th>
+        <th style="border-bottom:1px solid #333;">EVALUAR SERVICIO</th>
       </tr>
       
         <!-- Search goes here! -->
@@ -82,7 +85,7 @@ require('config.php');
 if(isset($_GET['search'])){
             $query = $_GET['query'];
 
-           $sql="SELECT * FROM ubereat.sales s join customers c on s.idclie=c.id where c.id='$id' and s.dates='$query'";
+           $sql="SELECT * FROM ubereat.sales s join customers c on s.idclie=c.id join estado e on s.est=e.idestado join evalucion ev on s.id=ev.idsale where c.id='$id' and s.dates='$query' order by s.id desc";
 $result=mysqli_query($db_link, $sql);
 while ($row=mysqli_fetch_array($result)){
   if($row[0]<10){$bol='B-001-000';}
@@ -101,10 +104,26 @@ while ($fila=mysqli_fetch_array($monto)){
 $total=$total+($fila[0]*$fila[1]);
  }?>
       <td style="border-bottom:1px solid #333;">S/ <?php echo $total; ?> </td>
+      <td style="border-bottom:1px solid #333;"> <?php echo $row[13]; ?> </td>
+      <?php if ($row[15]==0) {
+        $eval='SIN EVALUACION';
+      ?>
+      <td style="border-bottom:1px solid #333;"> <?php echo $eval; ?> </td>
+<?php }else{ 
+  
+?><td> 
+<?php for ($i=0; $i < $row[15]; $i++) {  ?>
+<img src="images/star.jpg"width="30" height="30">
+<?php }?>
+</td> 
+<?php } ?>
         <td style="border-bottom:1px solid #333;">
 <input type="hidden" name="idplato" value="<?php echo $row['id']; ?>">
 <input type="hidden" name="id" value="<?php echo $id; ?>">
         <a href="pdfrecibo.php?rec=<?php echo md5($row[0]) ?>" target="_blank"><input type="button" value="Ver" style="width:90px; height:30px; color:#FFF; background: #930; border:1px solid #930; border-radius:3px;"></a>
+        </td>
+        <td style="border-bottom:1px solid #333;">
+        <a href="evaluar2.php?rec=<?php echo md5($row[0]) ?>" ><input type="button" value="Evaluar" style="width:90px; height:30px; color:#FFF; background: #930; border:1px solid #930; border-radius:3px;"></a>
         </td>
       </tr>
             <?php
@@ -113,7 +132,7 @@ $total=$total+($fila[0]*$fila[1]);
 
             
           }else{
-$query="SELECT * FROM ubereat.sales s join customers c on s.idclie=c.id where c.id='$id'";
+$query="SELECT * FROM ubereat.sales s join customers c on s.idclie=c.id join estado e on s.est=e.idestado join evalucion ev on s.id=ev.idsale where c.id='$id' order by s.id desc";
 $result=mysqli_query($db_link, $query);
 while ($row=mysqli_fetch_array($result)){
   if($row[0]<10){$bol='B-001-000';}
@@ -133,10 +152,26 @@ while ($fila=mysqli_fetch_array($monto)){
 $total=$total+($cant*$precio);
  }?>
       <td style="border-bottom:1px solid #333;">S/ <?php echo $total; ?> </td>
+      <td style="border-bottom:1px solid #333;"> <?php echo $row[13]; ?> </td>
+      <?php if ($row[15]==0) {
+        $eval='SIN EVALUACION';
+      ?>
+      <td style="border-bottom:1px solid #333;"> <?php echo $eval; ?> </td>
+<?php }else{ 
+  
+?><td> 
+<?php for ($i=0; $i < $row[15]; $i++) {  ?>
+<img src="images/star.jpg"width="30" height="30">
+<?php }?>
+</td> 
+<?php } ?>
         <td style="border-bottom:1px solid #333;">
 <input type="hidden" name="idplato" value="<?php echo $row['id']; ?>">
 <input type="hidden" name="id" value="<?php echo $id; ?>">
         <a href="pdfrecibo.php?rec=<?php echo md5($row[0]) ?>" target="_blank"><input type="button" value="Ver" style="width:90px; height:30px; color:#FFF; background: #930; border:1px solid #930; border-radius:3px;"></a>
+        </td>
+        <td style="border-bottom:1px solid #333;">
+        <a href="evaluar2.php?rec=<?php echo md5($row[0]) ?>" ><input type="button" value="Evaluar" style="width:90px; height:30px; color:#FFF; background: #930; border:1px solid #930; border-radius:3px;"></a>
         </td>
       </tr>
     

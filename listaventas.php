@@ -82,7 +82,7 @@ require('config.php');
 if(isset($_GET['search'])){
             $query = $_GET['query'];
 
-           $sql="SELECT * FROM ubereat.sales s join customers c on s.idclie=c.id where md5(c.id)='$id' and s.dates='$query'";
+           $sql="SELECT * FROM ubereat.sales s join customers c on s.idclie=c.id where md5(c.id)='$id' and s.dates='$query' order by s.id desc";
 $result=mysqli_query($db_link, $sql);
 while ($row=mysqli_fetch_array($result)){
   if($row[0]<10){$bol='B-001-000';}
@@ -113,7 +113,7 @@ $total=$total+($fila[0]*$fila[1]);
 
             
           }else{
-$query="SELECT * FROM ubereat.sales s join customers c on s.idclie=c.id where md5(c.id)='$id'";
+$query="SELECT * FROM ubereat.sales s join customers c on s.idclie=c.id where md5(c.id)='$id' order by s.id desc";
 $result=mysqli_query($db_link, $query);
 while ($row=mysqli_fetch_array($result)){
   if($row[0]<10){$bol='B-001-000';}
