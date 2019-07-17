@@ -95,7 +95,7 @@ if($_SESSION['access']=='Salesperson'){
 <tr>
 
    <td width="1053" height="62">
-   <table width="669" border="0" cellspacing="0" cellpadding="0">
+   <table width="800" border="0" cellspacing="0" cellpadding="0">
      <tr>
        <th width="90" height="62" scope="col"><a href="index.php">Tablero</a></th>
        <th width="50" scope="col"><a href="limpiar.php">Ventas</a></th>
@@ -104,6 +104,7 @@ if($_SESSION['access']=='Salesperson'){
        <th width="90" scope="col"><a href="supplier.php">Proveedor</a></th>
        <th width="112" scope="col"><a href="salesreport.php">Reporte de Ventas</a></th>
         <th width="112" scope="col"><a href="estadisticas.php">Estadisticas</a></th>
+        <th width="112" scope="col"><a href="entregas.php">Entregas</a></th>
        </tr>
      </table>
       </td>

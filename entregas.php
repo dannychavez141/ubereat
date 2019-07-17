@@ -76,7 +76,7 @@ if(isset($_GET['search'])){
         <td style="border-bottom:1px solid #333;">
         
         
-        <a href="listaventas.php?id=<?php echo md5($row['id']);?>"><input type="button" value="Pedir" style="width:90px; height:30px; color:#FFF; background: #930; border:1px solid #930; border-radius:3px;"></a>
+        <a href="listapedidos.php?id=<?php echo md5($row['id']);?>"><input type="button" value="Pedir" style="width:90px; height:30px; color:#FFF; background: #930; border:1px solid #930; border-radius:3px;"></a>
         
         </td>
       </tr>
@@ -101,7 +101,7 @@ while ($row=mysqli_fetch_array($result)){?>
         <td style="border-bottom:1px solid #333;">
         
         
-        <a href="listaventas.php?id=<?php echo md5($row['id']);?>"><input type="button" value="Ver" style="width:90px; height:30px; color:#FFF; background: #930; border:1px solid #930; border-radius:3px;"></a>
+        <a href="listapedidos.php?id=<?php echo md5($row['id']);?>"><input type="button" value="Ver" style="width:90px; height:30px; color:#FFF; background: #930; border:1px solid #930; border-radius:3px;"></a>
         
         </td>
       </tr>

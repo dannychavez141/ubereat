@@ -43,7 +43,7 @@ while ($row=mysqli_fetch_array($result)){
       <tr>
         <td height="20" align="right">
         
-        <form action="listaventas.php" method="get" ecntype="multipart/data-form">
+        <form action="listapedidos.php" method="get" ecntype="multipart/data-form">
 <input type="hidden" name="id" value="<?php echo $id; ?>" />
         <input type="date" name="query" value="<?php echo date("Y-m-d");?>"style="border:1px solid #CCC; color: #333; width:210px; height:30px;" placeholder="Buscar Ventas por fecha..." /><input type="submit" id="btnsearch" value="Buscar" name="search" /><a href="listaventas.php?id=<?php echo $id ?>"><input type="button" id="btnsearch" value="Quitar filtro" name="search" /></a>
         </form>
@@ -67,7 +67,9 @@ while ($row=mysqli_fetch_array($result)){
       <tr height="30px">
         <th style="border-bottom:1px solid #333;"> RECIBO N° </th>
         <th style="border-bottom:1px solid #333;"> FECHA</th>
-        <th style="border-bottom:1px solid #333;"> MONTO DE VENTA </th>
+        <th style="border-bottom:1px solid #333;"> MONTO</th>
+        <th style="border-bottom:1px solid #333;"> ESTADO</th>
+        <th style="border-bottom:1px solid #333;"> EVALUACION</th>
         <th style="border-bottom:1px solid #333;">VER RECIBO</th>
       </tr>
       
@@ -82,7 +84,7 @@ require('config.php');
 if(isset($_GET['search'])){
             $query = $_GET['query'];
 
-           $sql="SELECT * FROM ubereat.sales s join customers c on s.idclie=c.id where md5(c.id)='$id' and s.dates='$query'";
+           $sql="SELECT * FROM ubereat.sales s join customers c on s.idclie=c.id join estado e on s.est=e.idestado join evalucion ev on s.id=ev.idsale where md5(c.id)='$id' and s.dates='$query'";
 $result=mysqli_query($db_link, $sql);
 while ($row=mysqli_fetch_array($result)){
   if($row[0]<10){$bol='B-001-000';}
@@ -101,10 +103,16 @@ while ($fila=mysqli_fetch_array($monto)){
 $total=$total+($fila[0]*$fila[1]);
  }?>
       <td style="border-bottom:1px solid #333;">S/ <?php echo $total; ?> </td>
+      <td style="border-bottom:1px solid #333;"> <?php echo $row[13]; ?> </td>
+      <?php if ($row[15]==0) {
+        $eval='SIN EVALUACION';
+      }else{$eval=$row[15];}
+      ?>
+      <td style="border-bottom:1px solid #333;"> <?php echo $eval; ?> </td>
         <td style="border-bottom:1px solid #333;">
 <input type="hidden" name="idplato" value="<?php echo $row['id']; ?>">
 <input type="hidden" name="id" value="<?php echo $id; ?>">
-        <a href="pdfrecibo.php?rec=<?php echo md5($row[0]) ?>" target="_blank"><input type="button" value="Ver" style="width:90px; height:30px; color:#FFF; background: #930; border:1px solid #930; border-radius:3px;"></a>
+        <a href="evaluar.php?rec=<?php echo md5($row[0]) ?>" ><input type="button" value="Ver" style="width:90px; height:30px; color:#FFF; background: #930; border:1px solid #930; border-radius:3px;"></a>
         </td>
       </tr>
             <?php
@@ -113,7 +121,7 @@ $total=$total+($fila[0]*$fila[1]);
 
             
           }else{
-$query="SELECT * FROM ubereat.sales s join customers c on s.idclie=c.id where md5(c.id)='$id'";
+$query="SELECT * FROM ubereat.sales s join customers c on s.idclie=c.id join estado e on s.est=e.idestado join evalucion ev on s.id=ev.idsale where md5(c.id)='$id'";
 $result=mysqli_query($db_link, $query);
 while ($row=mysqli_fetch_array($result)){
   if($row[0]<10){$bol='B-001-000';}
@@ -133,10 +141,16 @@ while ($fila=mysqli_fetch_array($monto)){
 $total=$total+($cant*$precio);
  }?>
       <td style="border-bottom:1px solid #333;">S/ <?php echo $total; ?> </td>
+      <td style="border-bottom:1px solid #333;"> <?php echo $row[13]; ?> </td>
+      <?php if ($row[15]==0) {
+        $eval='SIN EVALUACION';
+      }else{$eval=$row[15];}
+      ?>
+      <td style="border-bottom:1px solid #333;"> <?php echo $eval; ?> </td>
         <td style="border-bottom:1px solid #333;">
 <input type="hidden" name="idplato" value="<?php echo $row['id']; ?>">
 <input type="hidden" name="id" value="<?php echo $id; ?>">
-        <a href="pdfrecibo.php?rec=<?php echo md5($row[0]) ?>" target="_blank"><input type="button" value="Ver" style="width:90px; height:30px; color:#FFF; background: #930; border:1px solid #930; border-radius:3px;"></a>
+        <a href="evaluar.php?rec=<?php echo md5($row[0]) ?>" ><input type="button" value="Ver" style="width:90px; height:30px; color:#FFF; background: #930; border:1px solid #930; border-radius:3px;"></a>
         </td>
       </tr>
     
